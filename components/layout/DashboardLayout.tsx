@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTheme } from '../../contexts/ThemeContext';
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
 
@@ -8,10 +9,11 @@ interface DashboardLayoutProps {
 }
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
+  const { isDarkMode } = useTheme();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className={`min-h-screen ${isDarkMode ? 'bg-slate-950' : 'bg-slate-50'}`}>
       {/* Sidebar */}
       <Sidebar />
 

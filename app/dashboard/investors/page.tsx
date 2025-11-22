@@ -70,7 +70,7 @@ const FundraisingPage: React.FC = () => {
     if (!selectedInvestor) return;
     setLoading(true);
     try {
-      const companyContext = "We are TechSpark AI, an AI-powered platform helping early-stage startups accelerate fundraising and growth.";
+      const companyContext = "We are FundSpark AI, an AI-powered platform helping early-stage startups accelerate fundraising and growth.";
       const target = `${selectedInvestor.name} from ${selectedInvestor.firm}, focusing on ${selectedInvestor.tags.join(', ')}`;
       
       const data = await generateFundraisingMaterial(companyContext, 'email', target);

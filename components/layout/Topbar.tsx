@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../../contexts/ThemeContext';
 import {
   Search,
   Bell,
@@ -20,11 +21,11 @@ interface TopbarProps {
 }
 
 const Topbar: React.FC<TopbarProps> = ({ sidebarCollapsed }) => {
+  const { isDarkMode, toggleDarkMode } = useTheme();
   const [searchFocused, setSearchFocused] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   const notifications = [
     { id: 1, title: 'New Investor Match', message: 'You have 3 new investor matches', time: '5 min ago', unread: true },
@@ -34,10 +35,6 @@ const Topbar: React.FC<TopbarProps> = ({ sidebarCollapsed }) => {
 
   const unreadCount = notifications.filter(n => n.unread).length;
 
-  const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
-  };
-
   return (
     <motion.header
       initial={{ y: -100 }}
@@ -46,7 +43,7 @@ const Topbar: React.FC<TopbarProps> = ({ sidebarCollapsed }) => {
         marginLeft: sidebarCollapsed ? 80 : 280 
       }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
-      className="fixed top-0 right-0 h-20 bg-white border-b border-slate-200 shadow-sm z-30 flex items-center px-6 gap-6"
+      className={`fixed top-0 right-0 h-20 ${isDarkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'} border-b shadow-sm z-30 flex items-center px-6 gap-6`}
       style={{ width: sidebarCollapsed ? 'calc(100% - 80px)' : 'calc(100% - 280px)' }}
     >
       {/* Search Bar */}
@@ -63,11 +60,11 @@ const Topbar: React.FC<TopbarProps> = ({ sidebarCollapsed }) => {
           <input
             type="text"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onFocus={() => setSearchFocused(true)}
-            onBlur={() => setSearchFocused(false)}
-            placeholder="Search for investors, startups, insights..."
-            className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-500 focus:outline-none focus:border-[#08D9D6] transition-all"
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onFocus={() => setSearchFocused(true)}
+          onBlur={() => setSearchFocused(false)}
+          placeholder="Search for investors, startups, insights..."
+          className={`w-full pl-12 pr-4 py-3 ${isDarkMode ? 'bg-slate-800 border-slate-700 text-white placeholder-slate-400' : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-500'} rounded-xl text-sm focus:outline-none focus:border-[#08D9D6] transition-all`}
           />
         </motion.div>
       </div>
@@ -88,13 +85,13 @@ const Topbar: React.FC<TopbarProps> = ({ sidebarCollapsed }) => {
 
         {/* Theme Switcher */}
         <motion.button
-          onClick={toggleTheme}
-          className="p-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 transition-colors relative overflow-hidden"
+          onClick={toggleDarkMode}
+          className={`p-2.5 rounded-lg ${isDarkMode ? 'bg-slate-800 hover:bg-slate-700' : 'bg-slate-100 hover:bg-slate-200'} transition-colors relative overflow-hidden`}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
           <AnimatePresence mode="wait">
-            {theme === 'light' ? (
+            {!isDarkMode ? (
               <motion.div
                 key="sun"
                 initial={{ rotate: -180, opacity: 0 }}
@@ -122,11 +119,11 @@ const Topbar: React.FC<TopbarProps> = ({ sidebarCollapsed }) => {
         <div className="relative">
           <motion.button
             onClick={() => setNotificationsOpen(!notificationsOpen)}
-            className="p-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 transition-colors relative"
+            className={`p-2.5 rounded-lg ${isDarkMode ? 'bg-slate-800 hover:bg-slate-700' : 'bg-slate-100 hover:bg-slate-200'} transition-colors relative`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Bell className="w-5 h-5 text-slate-700" />
+            <Bell className={`w-5 h-5 ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`} />
             {unreadCount > 0 && (
               <motion.span
                 initial={{ scale: 0 }}
@@ -188,7 +185,7 @@ const Topbar: React.FC<TopbarProps> = ({ sidebarCollapsed }) => {
         <div className="relative">
           <motion.button
             onClick={() => setProfileOpen(!profileOpen)}
-            className="flex items-center gap-3 p-2 pr-3 rounded-lg bg-slate-100 hover:bg-slate-200 transition-colors"
+            className={`flex items-center gap-3 p-2 pr-3 rounded-lg ${isDarkMode ? 'bg-slate-800 hover:bg-slate-700' : 'bg-slate-100 hover:bg-slate-200'} transition-colors`}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -196,10 +193,10 @@ const Topbar: React.FC<TopbarProps> = ({ sidebarCollapsed }) => {
               A
             </div>
             <div className="hidden md:block text-left">
-              <p className="text-sm font-semibold text-slate-900">Amit Kumar</p>
-              <p className="text-xs text-slate-500">Founder</p>
+              <p className={`text-sm font-semibold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Amit Kumar</p>
+              <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Founder</p>
             </div>
-            <ChevronDown className="w-4 h-4 text-slate-500" />
+            <ChevronDown className={`w-4 h-4 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`} />
           </motion.button>
 
           <AnimatePresence>

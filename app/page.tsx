@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useTheme } from '../contexts/ThemeContext';
 import { 
   Rocket, CheckCircle, Zap, BarChart3, Users, ArrowRight, Star, 
   ChevronDown, ChevronUp, Shield, Globe, Menu, X, Lock, Eye, Search, Sparkles,
   TrendingUp, Target, Lightbulb, Award, Briefcase, DollarSign, LineChart, PieChart
 } from 'lucide-react';
 import Button from '../components/ui/Button';
+import ThemeToggle from '../components/ThemeToggle';
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
+  const { isDarkMode } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [activeFeature, setActiveFeature] = useState<number>(0);
@@ -28,7 +31,7 @@ const HomePage: React.FC = () => {
   }, []);
 
   const handleStart = () => {
-    navigate('/dashboard');
+    navigate('/startup/dashboard');
   };
 
   // Animation variants
@@ -104,7 +107,7 @@ const HomePage: React.FC = () => {
   const faqs = [
     { q: "How does the AI investor matching work?", a: "Our AI analyzes your startup's industry, stage, and metrics to match you with investors who have a proven track record of investing in similar companies." },
     { q: "What kind of content does the analysis tool monitor?", a: "We monitor social media posts, blog articles, and landing page copy to provide sentiment analysis and optimization suggestions." },
-    { q: "Can I integrate TechSpark AI with my existing tools?", a: "Yes, we offer integrations with popular tools like Slack, Notion, and major CRM platforms on our Growth and Enterprise plans." },
+    { q: "Can I integrate FundSpark AI with my existing tools?", a: "Yes, we offer integrations with popular tools like Slack, Notion, and major CRM platforms on our Growth and Enterprise plans." },
     { q: "Is my startup data secure and confidential?", a: "Absolutely. We use enterprise-grade encryption and strictly adhere to SOC 2 compliance standards to keep your data safe." },
     { q: "What happens after the free trial ends?", a: "You can choose to upgrade to one of our paid plans or downgrade to a limited free version. Your data will remain accessible." },
     { q: "How quickly will I see results?", a: "Most startups see an improvement in content engagement within 48 hours and receive their first investor matches within 24 hours of onboarding." },
@@ -136,13 +139,13 @@ const HomePage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white font-sans text-slate-900">
+    <div className={`min-h-screen ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-white text-slate-900'} font-sans`}>
       {/* Navigation */}
       <motion.nav 
         className={`fixed top-0 w-full backdrop-blur-md border-b z-50 transition-all duration-300 ${
           scrolled 
-            ? 'bg-white/95 border-slate-200 shadow-lg' 
-            : 'bg-white/90 border-slate-100'
+            ? `${isDarkMode ? 'bg-slate-950/95 border-slate-800' : 'bg-white/95 border-slate-200'} shadow-lg`
+            : `${isDarkMode ? 'bg-slate-950/90 border-slate-900' : 'bg-white/90 border-slate-100'}`
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -157,39 +160,40 @@ const HomePage: React.FC = () => {
               whileTap={{ scale: 0.95 }}
             >
               <motion.div 
-                className="bg-black p-2 rounded-lg shadow-md shadow-black/20"
+                className={`${isDarkMode ? 'bg-white' : 'bg-black'} p-2 rounded-lg ${isDarkMode ? 'shadow-white/20' : 'shadow-black/20'} shadow-md`}
                 whileHover={{ 
                   rotate: 360,
-                  boxShadow: "0 8px 25px rgba(0, 0, 0, 0.4)"
+                  boxShadow: isDarkMode ? "0 8px 25px rgba(255, 255, 255, 0.2)" : "0 8px 25px rgba(0, 0, 0, 0.4)"
                 }}
                 transition={{ duration: 0.6 }}
               >
-                <svg className="w-5 h-5 text-white" viewBox="0 0 200 200" fill="currentColor">
+                <svg className={`w-5 h-5 ${isDarkMode ? 'text-black' : 'text-white'}`} viewBox="0 0 200 200" fill="currentColor">
                   <path d="M60 40 L130 40 L185 70 L185 80 L140 80 L140 100 L100 100 L100 80 L65 80 L65 70 Z M80 120 Q80 100 100 100 L120 100 Q140 100 140 120 L140 160 L100 160 L100 140 L80 140 Z M100 140 L120 140 L120 160 L100 160 Z" />
                 </svg>
               </motion.div>
-              <span className="text-xl font-bold text-slate-900 tracking-tight">TechSpark AI</span>
+              <span className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-slate-900'} tracking-tight`}>FundSpark AI</span>
             </motion.div>
             
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-6">
               {['features', 'how-it-works', 'pricing'].map((item, index) => (
                 <motion.a 
                   key={item}
                   href={`#${item}`} 
-                  className="text-slate-600 hover:text-blue-600 font-medium text-sm transition-colors relative group"
+                  className={`${isDarkMode ? 'text-slate-300 hover:text-[#08D9D6]' : 'text-slate-600 hover:text-blue-600'} font-medium text-sm transition-colors relative group`}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
                   {item.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
                   <motion.span 
-                    className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"
+                    className={`absolute -bottom-1 left-0 w-0 h-0.5 ${isDarkMode ? 'bg-[#08D9D6]' : 'bg-blue-600'} group-hover:w-full transition-all duration-300`}
                   />
                 </motion.a>
               ))}
+              <ThemeToggle />
               <motion.button 
                 onClick={handleStart} 
-                className="text-slate-900 font-semibold text-sm hover:text-blue-600 transition-colors"
+                className={`${isDarkMode ? 'text-white hover:text-[#08D9D6]' : 'text-slate-900 hover:text-blue-600'} font-semibold text-sm transition-colors`}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
@@ -510,7 +514,7 @@ const HomePage: React.FC = () => {
                   <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                   <div className="w-3 h-3 rounded-full bg-green-500"></div>
                   <div className="flex-1 bg-slate-700/50 rounded px-4 py-1 ml-4">
-                    <span className="text-slate-400 text-xs">techspark.ai/dashboard</span>
+                    <span className="text-slate-400 text-xs">fundspark.ai/dashboard</span>
                   </div>
                 </div>
                 
@@ -804,7 +808,7 @@ const HomePage: React.FC = () => {
           viewport={{ once: false }}
           variants={fadeInUp}
         >
-          <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">How TechSpark AI Works</h2>
+          <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">How FundSpark AI Works</h2>
           <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Get started in minutes and see results in days</h3>
         </motion.div>
 
@@ -1300,7 +1304,7 @@ const HomePage: React.FC = () => {
                    viewport={{ once: false }}
                    transition={{ delay: 0.2 }}
                  >
-                   Join hundreds of startups and venture capital firms who trust TechSpark AI with their most sensitive business data.
+                   Join hundreds of startups and venture capital firms who trust FundSpark AI with their most sensitive business data.
                  </motion.p>
                  <motion.div 
                    className="flex gap-4"
@@ -1423,7 +1427,7 @@ const HomePage: React.FC = () => {
                  >
                    500+ startups
                  </motion.span>
-                 {' '}using TechSpark AI to raise funds, acquire customers, and scale faster. Start your free trial today and see results within the first week.
+                 {' '}using FundSpark AI to raise funds, acquire customers, and scale faster. Start your free trial today and see results within the first week.
              </motion.h3>
 
              <motion.div 
@@ -1466,6 +1470,7 @@ const HomePage: React.FC = () => {
                       className="bg-transparent border-none text-white placeholder-blue-200 focus:ring-0 w-full outline-none" 
                     />
                     <motion.button 
+                      onClick={handleStart}
                       className="text-white font-bold"
                       whileHover={{ scale: 1.1, color: "#bfdbfe" }}
                       whileTap={{ scale: 0.9 }}
@@ -1531,7 +1536,7 @@ const HomePage: React.FC = () => {
                       <path d="M60 40 L130 40 L185 70 L185 80 L140 80 L140 100 L100 100 L100 80 L65 80 L65 70 Z M80 120 Q80 100 100 100 L120 100 Q140 100 140 120 L140 160 L100 160 L100 140 L80 140 Z M100 140 L120 140 L120 160 L100 160 Z" />
                     </svg>
                   </motion.div>
-                  <span className="text-xl font-bold">TechSpark AI</span>
+                  <span className="text-xl font-bold">FundSpark AI</span>
                 </div>
                 <p className="text-slate-400 mb-6 leading-relaxed">
                   Empowering startups with AI-driven insights to accelerate growth, secure funding, and dominate markets.
@@ -1627,12 +1632,12 @@ const HomePage: React.FC = () => {
                     </div>
                     <div>
                       <p className="font-semibold text-white mb-1">Email</p>
-                      <a href="mailto:hello@techspark.ai" className="text-sm hover:text-blue-400 transition-colors">
-                        hello@techspark.ai
+                      <a href="mailto:hello@fundspark.ai" className="text-sm hover:text-blue-400 transition-colors">
+                        hello@fundspark.ai
                       </a>
                       <br />
-                      <a href="mailto:support@techspark.ai" className="text-sm hover:text-blue-400 transition-colors">
-                        support@techspark.ai
+                      <a href="mailto:support@fundspark.ai" className="text-sm hover:text-blue-400 transition-colors">
+                        support@fundspark.ai
                       </a>
                     </div>
                   </motion.div>
@@ -1695,7 +1700,7 @@ const HomePage: React.FC = () => {
               transition={{ delay: 0.4 }}
             >
               <p className="text-slate-400 text-sm">
-                © {new Date().getFullYear()} TechSpark AI. All rights reserved.
+                © {new Date().getFullYear()} FundSpark AI. All rights reserved.
               </p>
               <div className="flex gap-6 text-sm">
                 {["Privacy Policy", "Terms of Service", "Cookie Policy"].map((link, i) => (

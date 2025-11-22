@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+@layer utilities {
+  /* Dark mode utilities */
+  .dark-card {
+    @apply dark:bg-slate-900 dark:border-slate-800;
+  }
+  
+  .dark-input {
+    @apply dark:bg-slate-800 dark:border-slate-700 dark:text-white dark:placeholder-slate-400;
+  }
+  
+  .dark-button {
+    @apply dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-white;
+  }
+  
+  .dark-text {
+    @apply dark:text-slate-300;
+  }
+  
+  .dark-text-muted {
+    @apply dark:text-slate-500;
+  }
+  
+  .dark-border {
+    @apply dark:border-slate-800;
+  }
+  
+  .dark-hover {
+    @apply dark:hover:bg-slate-800;
+  }
+  
+  /* Glass morphism in dark mode */
+  .glass-dark {
+    @apply dark:bg-slate-900/50 dark:backdrop-blur-xl dark:border-slate-800;
+  }
+  
+  /* Gradient overlays */
+  .gradient-dark {
+    @apply dark:from-slate-950 dark:via-slate-900 dark:to-slate-950;
+  }
+}
