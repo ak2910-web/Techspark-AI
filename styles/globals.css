@@ -1,15 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   * {
-    @apply border-border;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
   body {
-    @apply bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100;
+    @apply bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100;
+    font-family: 'Inter', system-ui, sans-serif;
     transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-100 dark:bg-slate-900;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gradient-to-b from-blue-500 to-purple-600 rounded;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply from-blue-600 to-purple-700;
   }
 }
 
@@ -51,5 +72,31 @@
   /* Gradient overlays */
   .gradient-dark {
     @apply dark:from-slate-950 dark:via-slate-900 dark:to-slate-950;
+  }
+  
+  /* Gradient text animation */
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 5s ease infinite;
+  }
+  
+  /* Glass morphism effect */
+  .glass {
+    @apply bg-white/70 backdrop-blur-lg dark:bg-slate-900/70;
+  }
+  
+  /* Glow effect */
+  .glow {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+  }
+  
+  /* Premium gradient background */
+  .bg-gradient-premium {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   }
 }
