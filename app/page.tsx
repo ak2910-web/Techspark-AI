@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { 
   Rocket, CheckCircle, Zap, BarChart3, Users, ArrowRight, Star, 
-  ChevronDown, ChevronUp, Shield, Globe, Menu, X, Lock, Eye, Search, Sparkles 
+  ChevronDown, ChevronUp, Shield, Globe, Menu, X, Lock, Eye, Search, Sparkles,
+  TrendingUp, Target, Lightbulb, Award, Briefcase, DollarSign, LineChart, PieChart
 } from 'lucide-react';
 import Button from '../components/ui/Button';
 
@@ -103,7 +104,7 @@ const HomePage: React.FC = () => {
   const faqs = [
     { q: "How does the AI investor matching work?", a: "Our AI analyzes your startup's industry, stage, and metrics to match you with investors who have a proven track record of investing in similar companies." },
     { q: "What kind of content does the analysis tool monitor?", a: "We monitor social media posts, blog articles, and landing page copy to provide sentiment analysis and optimization suggestions." },
-    { q: "Can I integrate StartupIQ with my existing tools?", a: "Yes, we offer integrations with popular tools like Slack, Notion, and major CRM platforms on our Growth and Enterprise plans." },
+    { q: "Can I integrate TechSpark AI with my existing tools?", a: "Yes, we offer integrations with popular tools like Slack, Notion, and major CRM platforms on our Growth and Enterprise plans." },
     { q: "Is my startup data secure and confidential?", a: "Absolutely. We use enterprise-grade encryption and strictly adhere to SOC 2 compliance standards to keep your data safe." },
     { q: "What happens after the free trial ends?", a: "You can choose to upgrade to one of our paid plans or downgrade to a limited free version. Your data will remain accessible." },
     { q: "How quickly will I see results?", a: "Most startups see an improvement in content engagement within 48 hours and receive their first investor matches within 24 hours of onboarding." },
@@ -156,16 +157,18 @@ const HomePage: React.FC = () => {
               whileTap={{ scale: 0.95 }}
             >
               <motion.div 
-                className="bg-blue-600 p-2 rounded-lg shadow-md shadow-blue-600/20"
+                className="bg-black p-2 rounded-lg shadow-md shadow-black/20"
                 whileHover={{ 
                   rotate: 360,
-                  boxShadow: "0 8px 25px rgba(37, 99, 235, 0.4)"
+                  boxShadow: "0 8px 25px rgba(0, 0, 0, 0.4)"
                 }}
                 transition={{ duration: 0.6 }}
               >
-                <Rocket className="w-5 h-5 text-white" />
+                <svg className="w-5 h-5 text-white" viewBox="0 0 200 200" fill="currentColor">
+                  <path d="M60 40 L130 40 L185 70 L185 80 L140 80 L140 100 L100 100 L100 80 L65 80 L65 70 Z M80 120 Q80 100 100 100 L120 100 Q140 100 140 120 L140 160 L100 160 L100 140 L80 140 Z M100 140 L120 140 L120 160 L100 160 Z" />
+                </svg>
               </motion.div>
-              <span className="text-xl font-bold text-slate-900 tracking-tight">StartupIQ</span>
+              <span className="text-xl font-bold text-slate-900 tracking-tight">TechSpark AI</span>
             </motion.div>
             
             <div className="hidden md:flex items-center space-x-8">
@@ -343,7 +346,7 @@ const HomePage: React.FC = () => {
           >
             A smart platform designed to help early-stage startups{' '}
             <motion.span 
-              className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent inline-block"
+              className="bg-gradient-to-r from-[#08D9D6] via-[#FF2E63] to-[#252A34] bg-clip-text text-transparent inline-block"
               style={{ backgroundSize: '200% auto' }}
               animate={{
                 backgroundPosition: ['0% center', '100% center', '0% center'],
@@ -397,7 +400,7 @@ const HomePage: React.FC = () => {
           >
             <motion.button 
               onClick={handleStart} 
-              className="group px-8 py-4 bg-slate-900 text-white rounded-lg font-semibold transition-all flex items-center justify-center min-w-[180px] relative overflow-hidden"
+              className="group px-8 py-4 bg-[#252A34] text-white rounded-lg font-semibold transition-all flex items-center justify-center min-w-[180px] relative overflow-hidden"
               whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(0,0,0,0.2)" }}
               whileTap={{ scale: 0.98 }}
               animate={{ 
@@ -477,11 +480,108 @@ const HomePage: React.FC = () => {
               </motion.span>
             </motion.div>
           </motion.div>
+
+          {/* Dashboard Preview Image */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="mt-16 relative"
+          >
+            <motion.div
+              animate={{
+                y: [0, -15, 0],
+              }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              className="relative mx-auto max-w-5xl"
+            >
+              {/* Glow effect */}
+              <div className="absolute -inset-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-3xl opacity-20 blur-3xl"></div>
+              
+              {/* Dashboard Mockup */}
+              <div className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-2xl shadow-2xl p-6 border border-slate-700">
+                {/* Browser Chrome */}
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  <div className="flex-1 bg-slate-700/50 rounded px-4 py-1 ml-4">
+                    <span className="text-slate-400 text-xs">techspark.ai/dashboard</span>
+                  </div>
+                </div>
+                
+                {/* Dashboard Content */}
+                <div className="bg-slate-800/50 rounded-lg p-6 space-y-4">
+                  {/* Stats Row */}
+                  <div className="grid grid-cols-4 gap-4">
+                    {[
+                      { label: "Active Investors", value: "1,234", icon: Users, color: "blue" },
+                      { label: "Content Score", value: "92%", icon: TrendingUp, color: "green" },
+                      { label: "Market Rank", value: "#12", icon: Target, color: "purple" },
+                      { label: "Growth Rate", value: "+45%", icon: LineChart, color: "orange" }
+                    ].map((stat, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.8 + i * 0.1 }}
+                        className={`bg-gradient-to-br from-${stat.color}-500/10 to-${stat.color}-600/5 rounded-lg p-4 border border-${stat.color}-500/20`}
+                      >
+                        <stat.icon className={`w-5 h-5 text-${stat.color}-400 mb-2`} />
+                        <div className={`text-2xl font-bold text-${stat.color}-400`}>{stat.value}</div>
+                        <div className="text-xs text-slate-400">{stat.label}</div>
+                      </motion.div>
+                    ))}
+                  </div>
+                  
+                  {/* Chart Area */}
+                  <div className="bg-slate-700/30 rounded-lg p-6 h-48 flex items-end justify-between gap-2">
+                    {[40, 65, 45, 80, 55, 90, 70, 85, 60, 95, 75, 88].map((height, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ height: 0 }}
+                        animate={{ height: `${height}%` }}
+                        transition={{ delay: 1 + i * 0.1, duration: 0.5 }}
+                        className="flex-1 bg-gradient-to-t from-blue-500 to-purple-500 rounded-t opacity-80"
+                      />
+                    ))}
+                  </div>
+                  
+                  {/* Activity Feed */}
+                  <div className="space-y-2">
+                    {[
+                      { text: "New investor match: Sequoia Capital", icon: Award, color: "green" },
+                      { text: "Content optimization completed", icon: Lightbulb, color: "yellow" },
+                      { text: "Competitor analysis updated", icon: Target, color: "blue" }
+                    ].map((activity, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 1.5 + i * 0.2 }}
+                        className="flex items-center gap-3 bg-slate-700/30 rounded-lg p-3"
+                      >
+                        <div className={`w-8 h-8 rounded-full bg-${activity.color}-500/20 flex items-center justify-center`}>
+                          <activity.icon className={`w-4 h-4 text-${activity.color}-400`} />
+                        </div>
+                        <span className="text-sm text-slate-300">{activity.text}</span>
+                        <span className="ml-auto text-xs text-slate-500">Just now</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </motion.section>
 
       {/* Feature Highlights Cards */}
-      <section id="features" className="py-12 bg-white">
+      <section id="features" className="py-20 bg-gradient-to-b from-white via-blue-50/30 to-white">
         <motion.div 
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
           initial="hidden"
@@ -489,8 +589,14 @@ const HomePage: React.FC = () => {
           viewport={{ once: false, margin: "-100px", amount: 0.3 }}
           variants={staggerContainer}
         >
+          <motion.div variants={fadeInUp} className="text-center mb-16">
+            <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">Powerful Features</h2>
+            <h3 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">Everything you need to succeed</h3>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">AI-powered tools that give your startup an unfair advantage</p>
+          </motion.div>
+
            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-             {/* Orange Card */}
+             {/* Orange Card with Visual */}
              <motion.div 
                variants={fadeInLeft}
                whileHover={{ y: -10, boxShadow: "0 25px 50px rgba(249, 115, 22, 0.15)" }}
@@ -500,13 +606,18 @@ const HomePage: React.FC = () => {
                transition={{ 
                  y: { duration: 4, repeat: Infinity, ease: "easeInOut" }
                }}
-               className="p-10 rounded-2xl border border-slate-100 shadow-lg transition-all duration-300 bg-white group relative overflow-hidden"
+               className="p-10 rounded-3xl border border-slate-100 shadow-lg transition-all duration-300 bg-white group relative overflow-hidden"
              >
                 <motion.div 
                   className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 />
+                
+                {/* Decorative circles */}
+                <div className="absolute -right-10 -top-10 w-40 h-40 bg-orange-500/5 rounded-full blur-2xl"></div>
+                <div className="absolute -right-5 -top-5 w-20 h-20 bg-orange-500/10 rounded-full"></div>
+                
                 <motion.div 
-                  className="w-14 h-14 bg-orange-500 rounded-xl flex items-center justify-center mb-6 text-white shadow-lg shadow-orange-500/20 relative z-10"
+                  className="w-16 h-16 bg-gradient-to-br from-[#08D9D6] to-[#252A34] rounded-2xl flex items-center justify-center mb-6 text-white shadow-lg shadow-[#08D9D6]/30 relative z-10"
                   whileHover={{ rotate: 360, scale: 1.1 }}
                   animate={{ 
                     rotate: [0, 5, -5, 0],
@@ -517,15 +628,35 @@ const HomePage: React.FC = () => {
                     scale: { duration: 2, repeat: Infinity }
                   }}
                 >
-                  <Zap className="w-7 h-7" />
+                  <Zap className="w-8 h-8" />
                 </motion.div>
+                
                 <h3 className="text-2xl font-bold text-slate-900 mb-4 relative z-10">Competitive Benchmarking</h3>
-                <p className="text-slate-600 text-lg leading-relaxed relative z-10">
+                <p className="text-slate-600 text-lg leading-relaxed relative z-10 mb-6">
                   Compare your online presence against competitors and industry leaders to identify gaps and opportunities.
                 </p>
+                
+                {/* Mini visualization */}
+                <div className="flex items-end gap-2 h-16 mb-4">
+                  {[60, 80, 70, 90, 65, 85].map((height, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ height: 0 }}
+                      whileInView={{ height: `${height}%` }}
+                      viewport={{ once: false }}
+                      transition={{ delay: i * 0.1 }}
+                      className="flex-1 bg-gradient-to-t from-orange-500 to-orange-300 rounded-t"
+                    />
+                  ))}
+                </div>
+                
+                <div className="flex items-center gap-2 text-sm text-orange-600 font-semibold">
+                  <TrendingUp className="w-4 h-4" />
+                  Track 50+ metrics
+                </div>
              </motion.div>
 
-             {/* Pink Card */}
+             {/* Pink Card with Visual */}
              <motion.div 
                variants={fadeInRight}
                whileHover={{ y: -10, boxShadow: "0 25px 50px rgba(236, 72, 153, 0.15)" }}
@@ -535,13 +666,18 @@ const HomePage: React.FC = () => {
                transition={{ 
                  y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }
                }}
-               className="p-10 rounded-2xl border border-slate-100 shadow-lg transition-all duration-300 bg-white group relative overflow-hidden"
+               className="p-10 rounded-3xl border border-slate-100 shadow-lg transition-all duration-300 bg-white group relative overflow-hidden"
              >
                 <motion.div 
                   className="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 />
+                
+                {/* Decorative circles */}
+                <div className="absolute -left-10 -top-10 w-40 h-40 bg-pink-500/5 rounded-full blur-2xl"></div>
+                <div className="absolute -left-5 -top-5 w-20 h-20 bg-pink-500/10 rounded-full"></div>
+                
                 <motion.div 
-                  className="w-14 h-14 bg-pink-500 rounded-xl flex items-center justify-center mb-6 text-white shadow-lg shadow-pink-500/20 relative z-10"
+                  className="w-16 h-16 bg-gradient-to-br from-[#FF2E63] to-[#252A34] rounded-2xl flex items-center justify-center mb-6 text-white shadow-lg shadow-[#FF2E63]/30 relative z-10"
                   whileHover={{ rotate: 360, scale: 1.1 }}
                   animate={{ 
                     rotate: [0, -5, 5, 0],
@@ -552,12 +688,40 @@ const HomePage: React.FC = () => {
                     scale: { duration: 2, repeat: Infinity, delay: 0.3 }
                   }}
                 >
-                  <Eye className="w-7 h-7" />
+                  <Eye className="w-8 h-8" />
                 </motion.div>
+                
                 <h3 className="text-2xl font-bold text-slate-900 mb-4 relative z-10">Smart Optimization</h3>
-                <p className="text-slate-600 text-lg leading-relaxed relative z-10">
+                <p className="text-slate-600 text-lg leading-relaxed relative z-10 mb-6">
                   Get AI-powered quick wins to boost visibility and accelerate growth with actionable content suggestions.
                 </p>
+                
+                {/* Content suggestions visual */}
+                <div className="space-y-2 mb-4">
+                  {[
+                    { text: "Improve CTA placement", score: 92 },
+                    { text: "Enhance headline clarity", score: 88 },
+                    { text: "Optimize meta description", score: 95 }
+                  ].map((item, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: false }}
+                      transition={{ delay: i * 0.1 }}
+                      className="flex items-center gap-3 text-sm"
+                    >
+                      <div className="w-2 h-2 rounded-full bg-pink-500"></div>
+                      <span className="flex-1 text-slate-700">{item.text}</span>
+                      <span className="font-bold text-pink-600">{item.score}%</span>
+                    </motion.div>
+                  ))}
+                </div>
+                
+                <div className="flex items-center gap-2 text-sm text-pink-600 font-semibold">
+                  <Sparkles className="w-4 h-4" />
+                  AI-powered insights
+                </div>
              </motion.div>
            </div>
         </motion.div>
@@ -604,7 +768,7 @@ const HomePage: React.FC = () => {
                   className={index === 3 ? "border-none" : ""}
                 >
                   <motion.div 
-                    className="text-4xl font-bold text-blue-600 mb-2"
+                    className="text-4xl font-bold text-[#08D9D6] mb-2"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: false }}
@@ -640,7 +804,7 @@ const HomePage: React.FC = () => {
           viewport={{ once: false }}
           variants={fadeInUp}
         >
-          <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">How StartupIQ Works</h2>
+          <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">How TechSpark AI Works</h2>
           <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Get started in minutes and see results in days</h3>
         </motion.div>
 
@@ -945,7 +1109,7 @@ const HomePage: React.FC = () => {
               >
                 {plan.popular && (
                   <motion.div 
-                    className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-1 rounded-full text-sm font-bold shadow-lg"
+                    className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#08D9D6] to-[#FF2E63] text-white px-6 py-1 rounded-full text-sm font-bold shadow-lg"
                     initial={{ y: -20, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: false }}
@@ -1136,7 +1300,7 @@ const HomePage: React.FC = () => {
                    viewport={{ once: false }}
                    transition={{ delay: 0.2 }}
                  >
-                   Join hundreds of startups and venture capital firms who trust StartupIQ with their most sensitive business data.
+                   Join hundreds of startups and venture capital firms who trust TechSpark AI with their most sensitive business data.
                  </motion.p>
                  <motion.div 
                    className="flex gap-4"
@@ -1259,7 +1423,7 @@ const HomePage: React.FC = () => {
                  >
                    500+ startups
                  </motion.span>
-                 {' '}using StartupIQ to raise funds, acquire customers, and scale faster. Start your free trial today and see results within the first week.
+                 {' '}using TechSpark AI to raise funds, acquire customers, and scale faster. Start your free trial today and see results within the first week.
              </motion.h3>
 
              <motion.div 
@@ -1268,7 +1432,7 @@ const HomePage: React.FC = () => {
              >
                  <motion.button 
                    onClick={handleStart} 
-                   className="px-8 py-4 bg-white text-blue-600 rounded-xl font-bold flex items-center justify-center relative overflow-hidden group"
+                   className="px-8 py-4 bg-white text-[#252A34] rounded-xl font-bold flex items-center justify-center relative overflow-hidden group"
                    whileHover={{ scale: 1.05, y: -5 }}
                    whileTap={{ scale: 0.95 }}
                  >
@@ -1328,6 +1492,227 @@ const HomePage: React.FC = () => {
              </motion.div>
          </motion.div>
       </motion.section>
+
+      {/* Contact & Footer Section */}
+      <footer className="bg-slate-900 text-white relative overflow-hidden">
+        {/* Decorative background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-slate-900 to-purple-900/20"></div>
+        <motion.div 
+          className="absolute top-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            x: [0, -50, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+          }}
+        />
+
+        <div className="relative z-10">
+          {/* Main Footer Content */}
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <motion.div 
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false }}
+              variants={staggerContainer}
+            >
+              {/* Company Info */}
+              <motion.div variants={fadeInUp} className="lg:col-span-1">
+                <div className="flex items-center gap-2 mb-4">
+                  <motion.div 
+                    className="bg-black p-2 rounded-lg"
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    <svg className="w-5 h-5 text-white" viewBox="0 0 200 200" fill="currentColor">
+                      <path d="M60 40 L130 40 L185 70 L185 80 L140 80 L140 100 L100 100 L100 80 L65 80 L65 70 Z M80 120 Q80 100 100 100 L120 100 Q140 100 140 120 L140 160 L100 160 L100 140 L80 140 Z M100 140 L120 140 L120 160 L100 160 Z" />
+                    </svg>
+                  </motion.div>
+                  <span className="text-xl font-bold">TechSpark AI</span>
+                </div>
+                <p className="text-slate-400 mb-6 leading-relaxed">
+                  Empowering startups with AI-driven insights to accelerate growth, secure funding, and dominate markets.
+                </p>
+                <div className="flex gap-4">
+                  {[
+                    { icon: "M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z", label: "Twitter" },
+                    { icon: "M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M4 2a2 2 0 100 4 2 2 0 000-4z", label: "LinkedIn" },
+                    { icon: "M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22", label: "GitHub" }
+                  ].map((social, i) => (
+                    <motion.a
+                      key={i}
+                      href="#"
+                      className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 transition-colors"
+                      whileHover={{ scale: 1.1, y: -3 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={social.icon} />
+                      </svg>
+                    </motion.a>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Quick Links */}
+              <motion.div variants={fadeInUp}>
+                <h4 className="font-bold text-lg mb-4">Product</h4>
+                <ul className="space-y-3">
+                  {["Features", "Pricing", "How it Works", "Case Studies", "Integrations", "API"].map((link, i) => (
+                    <motion.li 
+                      key={i}
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <a href="#" className="text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                        <ArrowRight className="w-3 h-3" />
+                        {link}
+                      </a>
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
+
+              {/* Company Links */}
+              <motion.div variants={fadeInUp}>
+                <h4 className="font-bold text-lg mb-4">Company</h4>
+                <ul className="space-y-3">
+                  {["About Us", "Careers", "Blog", "Press Kit", "Partners", "Contact"].map((link, i) => (
+                    <motion.li 
+                      key={i}
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <a href="#" className="text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                        <ArrowRight className="w-3 h-3" />
+                        {link}
+                      </a>
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
+
+              {/* Contact Information */}
+              <motion.div variants={fadeInUp}>
+                <h4 className="font-bold text-lg mb-4">Contact Us</h4>
+                <div className="space-y-4">
+                  <motion.div 
+                    className="flex items-start gap-3 text-slate-400"
+                    whileHover={{ x: 5 }}
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0 mt-1">
+                      <Globe className="w-5 h-5 text-blue-400" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-white mb-1">Address</p>
+                      <p className="text-sm leading-relaxed">
+                        123 Innovation Drive<br />
+                        Silicon Valley, CA 94025<br />
+                        United States
+                      </p>
+                    </div>
+                  </motion.div>
+
+                  <motion.div 
+                    className="flex items-start gap-3 text-slate-400"
+                    whileHover={{ x: 5 }}
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-white mb-1">Email</p>
+                      <a href="mailto:hello@techspark.ai" className="text-sm hover:text-blue-400 transition-colors">
+                        hello@techspark.ai
+                      </a>
+                      <br />
+                      <a href="mailto:support@techspark.ai" className="text-sm hover:text-blue-400 transition-colors">
+                        support@techspark.ai
+                      </a>
+                    </div>
+                  </motion.div>
+
+                  <motion.div 
+                    className="flex items-start gap-3 text-slate-400"
+                    whileHover={{ x: 5 }}
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-white mb-1">Phone</p>
+                      <a href="tel:+14155551234" className="text-sm hover:text-blue-400 transition-colors block">
+                        +1 (415) 555-1234
+                      </a>
+                      <p className="text-xs mt-1">Mon-Fri, 9am-6pm PST</p>
+                    </div>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* Newsletter Section */}
+            <motion.div 
+              className="border-t border-slate-800 pt-12 pb-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{ delay: 0.3 }}
+            >
+              <div className="max-w-2xl mx-auto text-center mb-8">
+                <h4 className="text-2xl font-bold mb-3">Stay Updated</h4>
+                <p className="text-slate-400 mb-6">Get the latest startup tips, funding news, and AI insights delivered to your inbox.</p>
+                <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                  <input 
+                    type="email" 
+                    placeholder="Enter your email" 
+                    className="flex-1 px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
+                  />
+                  <motion.button
+                    className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Subscribe
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Bottom Bar */}
+            <motion.div 
+              className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: false }}
+              transition={{ delay: 0.4 }}
+            >
+              <p className="text-slate-400 text-sm">
+                © {new Date().getFullYear()} TechSpark AI. All rights reserved.
+              </p>
+              <div className="flex gap-6 text-sm">
+                {["Privacy Policy", "Terms of Service", "Cookie Policy"].map((link, i) => (
+                  <motion.a
+                    key={i}
+                    href="#"
+                    className="text-slate-400 hover:text-white transition-colors"
+                    whileHover={{ y: -2 }}
+                  >
+                    {link}
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };

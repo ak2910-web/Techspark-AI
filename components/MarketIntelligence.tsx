@@ -3,6 +3,7 @@ import { getMarketIntelligence } from '../services/geminiService';
 import { MarketTrend } from '../types';
 import Card from './ui/Card';
 import Button from './ui/Button';
+import DashboardLayout from './layout/DashboardLayout';
 import { Search, Globe, TrendingUp, Lightbulb, Target, ExternalLink } from 'lucide-react';
 
 const MarketIntelligence: React.FC = () => {
@@ -24,7 +25,8 @@ const MarketIntelligence: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-500">
+    <DashboardLayout>
+      <div className="space-y-6 animate-in fade-in duration-500">
       <div className="bg-white p-8 rounded-xl border border-slate-200 shadow-sm text-center">
         <h2 className="text-2xl font-bold text-slate-900 mb-2">Market Intelligence Scout</h2>
         <p className="text-slate-500 mb-6">Discover real-time trends and opportunities in your sector using AI-powered search.</p>
@@ -110,6 +112,7 @@ const MarketIntelligence: React.FC = () => {
         </div>
       )}
     </div>
+    </DashboardLayout>
   );
 };
 

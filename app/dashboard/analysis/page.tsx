@@ -3,6 +3,7 @@ import { analyzeMarketingContent } from '../../../lib/api';
 import { ContentAnalysisResult } from '../../../types/index';
 import Card from '../../../components/ui/Card';
 import Button from '../../../components/ui/Button';
+import DashboardLayout from '../../../components/layout/DashboardLayout';
 import { Sparkles, AlertCircle, ThumbsUp, ArrowRight } from 'lucide-react';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
@@ -32,7 +33,8 @@ const AnalysisPage: React.FC = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-in fade-in duration-500">
+    <DashboardLayout>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-in fade-in duration-500">
       <div className="space-y-6">
         <Card title="Input Content" description="Paste your landing page copy, ad text, or social post">
           <textarea
@@ -117,6 +119,7 @@ const AnalysisPage: React.FC = () => {
         )}
       </div>
     </div>
+    </DashboardLayout>
   );
 };
 

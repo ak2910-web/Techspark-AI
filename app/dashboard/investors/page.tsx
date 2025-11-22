@@ -3,6 +3,7 @@ import { generateFundraisingMaterial } from '../../../lib/api';
 import { FundraisingGeneratedContent } from '../../../types/index';
 import Card from '../../../components/ui/Card';
 import Button from '../../../components/ui/Button';
+import DashboardLayout from '../../../components/layout/DashboardLayout';
 import { 
   Target, Users, Star, Mail, CheckCircle2, 
   Send, ExternalLink, X, Loader2, Check, Copy, MapPin, DollarSign, TrendingUp
@@ -69,7 +70,7 @@ const FundraisingPage: React.FC = () => {
     if (!selectedInvestor) return;
     setLoading(true);
     try {
-      const companyContext = "We are StartupIQ, an AI-powered platform helping early-stage startups accelerate fundraising and growth.";
+      const companyContext = "We are TechSpark AI, an AI-powered platform helping early-stage startups accelerate fundraising and growth.";
       const target = `${selectedInvestor.name} from ${selectedInvestor.firm}, focusing on ${selectedInvestor.tags.join(', ')}`;
       
       const data = await generateFundraisingMaterial(companyContext, 'email', target);
@@ -93,7 +94,8 @@ const FundraisingPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500 pb-10">
+    <DashboardLayout>
+      <div className="space-y-8 animate-in fade-in duration-500 pb-10">
       
       {/* Header */}
       <div>
@@ -324,8 +326,8 @@ const FundraisingPage: React.FC = () => {
           </div>
         </div>
       )}
-
-    </div>
+      </div>
+    </DashboardLayout>
   );
 };
 

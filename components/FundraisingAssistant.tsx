@@ -3,6 +3,7 @@ import { generateFundraisingMaterial } from '../services/geminiService';
 import { FundraisingGeneratedContent } from '../types';
 import Card from './ui/Card';
 import Button from './ui/Button';
+import DashboardLayout from './layout/DashboardLayout';
 import { Send, FileText, Mic, Copy, Check } from 'lucide-react';
 
 const FundraisingAssistant: React.FC = () => {
@@ -36,7 +37,8 @@ const FundraisingAssistant: React.FC = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full animate-in fade-in duration-500">
+    <DashboardLayout>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full animate-in fade-in duration-500">
       <div className="lg:col-span-1 space-y-6">
         <Card title="Startup Details" description="Provide context for the AI">
           <div className="space-y-4">
@@ -127,6 +129,7 @@ const FundraisingAssistant: React.FC = () => {
         </Card>
       </div>
     </div>
+    </DashboardLayout>
   );
 };
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 import { TrendingUp, Users, DollarSign, Activity } from 'lucide-react';
 import Card from './ui/Card';
+import DashboardLayout from './layout/DashboardLayout';
 
 const mockGrowthData = [
   { name: 'Jan', visitors: 400, active: 240 },
@@ -42,7 +43,8 @@ const StatCard: React.FC<{ title: string; value: string; change: string; icon: R
 
 const Dashboard: React.FC = () => {
   return (
-    <div className="space-y-6 animate-in fade-in duration-500">
+    <DashboardLayout>
+      <div className="space-y-6 animate-in fade-in duration-500">
       <div className="flex justify-between items-end">
         <div>
           <h1 className="text-2xl font-bold text-slate-900">Startup Overview</h1>
@@ -120,6 +122,7 @@ const Dashboard: React.FC = () => {
         </Card>
       </div>
     </div>
+    </DashboardLayout>
   );
 };
 

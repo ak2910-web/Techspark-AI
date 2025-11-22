@@ -24,7 +24,7 @@ const Layout: React.FC<LayoutProps> = ({ children, currentView, onNavigate }) =>
         <div className="bg-primary-500 p-1.5 rounded-lg">
             <Rocket className="w-5 h-5 text-white" />
         </div>
-        <h1 className="text-xl font-bold text-white tracking-tight">StartupIQ</h1>
+        <h1 className="text-xl font-bold text-white tracking-tight">TechSpark AI</h1>
       </div>
       <nav className="flex-1 p-4 space-y-1">
         {navItems.map((item) => (
@@ -89,7 +89,7 @@ const Layout: React.FC<LayoutProps> = ({ children, currentView, onNavigate }) =>
              <div className="bg-primary-600 p-1 rounded">
                 <Rocket className="w-4 h-4 text-white" />
              </div>
-             <h1 className="text-lg font-bold text-slate-900">StartupIQ</h1>
+             <h1 className="text-lg font-bold text-slate-900">TechSpark AI</h1>
           </div>
           <button onClick={() => setIsMobileMenuOpen(true)} className="text-slate-600">
             <Menu className="w-6 h-6" />
