@@ -1,7 +1,7 @@
 import { GoogleGenAI, Type, Schema } from "@google/genai";
 import { ContentAnalysisResult, MarketTrend, FundraisingGeneratedContent } from "../types/index";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
 
 export const analyzeMarketingContent = async (text: string): Promise<ContentAnalysisResult> => {
   const prompt = `Analyze the following marketing copy for a startup. Provide a score (0-100), identify the tone, list specific actionable suggestions for improvement, and write a significantly improved version of the copy.
