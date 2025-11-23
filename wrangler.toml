@@ -1,5 +1,5 @@
 
-name = "techspark-ai"
+name = "fundspark"
 main = "src/worker.js"
 compatibility_date = "2024-11-22"
 
