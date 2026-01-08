@@ -180,16 +180,16 @@ const HomePage: React.FC = () => {
             </motion.div>
             
             <div className="hidden md:flex items-center space-x-6">
-              {['features', 'how-it-works', 'pricing'].map((item, index) => (
+              {[{ name: 'features', href: '#/features' }, { name: 'how-it-works', href: '#how-it-works' }, { name: 'pricing', href: '#pricing' }].map((item, index) => (
                 <motion.a 
-                  key={item}
-                  href={`#${item}`} 
+                  key={item.name}
+                  href={item.href} 
                   className={`${isDarkMode ? 'text-slate-300 hover:text-[#08D9D6]' : 'text-slate-600 hover:text-blue-600'} font-medium text-sm transition-colors relative group`}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  {item.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                  {item.name.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
                   <motion.span 
                     className={`absolute -bottom-1 left-0 w-0 h-0.5 ${isDarkMode ? 'bg-[#08D9D6]' : 'bg-blue-600'} group-hover:w-full transition-all duration-300`}
                   />
@@ -248,17 +248,17 @@ const HomePage: React.FC = () => {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >
-            {['features', 'how-it-works', 'pricing'].map((item, index) => (
-              <motion.a 
-                key={item}
-                href={`#${item}`} 
+            {[{ name: 'features', href: '#/features' }, { name: 'how-it-works', href: '#how-it-works' }, { name: 'pricing', href: '#pricing' }].map((item, index) => (
+              <motion.a
+                key={item.name}
+                href={item.href}
                 className="block text-slate-600 font-medium p-2 hover:bg-slate-50 rounded" 
                 onClick={() => setIsMenuOpen(false)}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                {item.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                {item.name.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
               </motion.a>
             ))}
             <motion.button 
@@ -297,7 +297,7 @@ const HomePage: React.FC = () => {
         className="pt-32 pb-20 bg-gradient-to-b from-blue-50/40 via-white to-white relative overflow-hidden"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.3 }}
         variants={staggerContainer}
       >
         {/* Animated background elements */}
@@ -331,7 +331,6 @@ const HomePage: React.FC = () => {
           className="absolute top-1/2 left-1/2 w-64 h-64 bg-pink-400/5 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.4, 1],
-            rotate: [0, 180, 360],
           }}
           transition={{
             duration: 30,
@@ -601,436 +600,13 @@ const HomePage: React.FC = () => {
         </div>
       </motion.section>
 
-      {/* Feature Highlights - Enhanced and Detailed */}
-      <section id="features" className="py-32 bg-gradient-to-b from-white via-blue-50/30 to-white relative overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] -z-10"></div>
-        <motion.div 
-          className="absolute top-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.3, 1],
-            x: [0, 50, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-          }}
-        />
-        
-        <motion.div 
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, margin: "-100px", amount: 0.3 }}
-          variants={staggerContainer}
-        >
-          {/* Section Header */}
-          <motion.div variants={fadeInUp} className="text-center mb-20">
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false }}
-              className="inline-block"
-            >
-              <span className="text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 uppercase tracking-wider mb-3 block">
-                Powerful Features
-              </span>
-            </motion.div>
-            <h3 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
-              Everything you need to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">succeed</span>
-            </h3>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              AI-powered platform with comprehensive tools designed to accelerate your startup's growth at every stage
-            </p>
-          </motion.div>
-
-          {/* Main Feature Grid - 6 Detailed Features */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-            {/* Feature 1: AI-Powered Investor Matching */}
-            <motion.div 
-              variants={fadeInUp}
-              whileHover={{ y: -12, boxShadow: "0 30px 60px rgba(59, 130, 246, 0.15)" }}
-              className="p-8 rounded-3xl border-2 border-slate-100 shadow-lg transition-all duration-500 bg-white group relative overflow-hidden"
-            >
-              <motion.div 
-                className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              />
-              
-              <div className="absolute -right-8 -top-8 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl"></div>
-              
-              <motion.div 
-                className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-400 rounded-2xl flex items-center justify-center mb-6 text-white shadow-lg shadow-blue-600/30 relative z-10"
-                whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
-                transition={{ duration: 0.6 }}
-              >
-                <Users className="w-10 h-10" />
-              </motion.div>
-              
-              <h3 className="text-2xl font-bold text-slate-900 mb-4 relative z-10">AI-Powered Investor Matching</h3>
-              <p className="text-slate-600 text-base leading-relaxed relative z-10 mb-6">
-                Connect with the right investors who align with your industry, stage, and vision. Our AI analyzes 10,000+ investors to find your perfect match.
-              </p>
-              
-              {/* Feature Details */}
-              <div className="space-y-3 mb-6">
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-slate-700">Smart matching algorithm considers 50+ data points</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-slate-700">Access to verified investor profiles and portfolios</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-slate-700">Automated outreach templates and follow-ups</span>
-                </div>
-              </div>
-              
-              <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-                <span className="text-sm font-semibold text-blue-600">10K+ Investors</span>
-                <motion.div
-                  whileHover={{ x: 5 }}
-                  className="text-blue-600"
-                >
-                  <ArrowRight className="w-5 h-5" />
-                </motion.div>
-              </div>
-            </motion.div>
-
-            {/* Feature 2: Content Optimization Engine */}
-            <motion.div 
-              variants={fadeInUp}
-              whileHover={{ y: -12, boxShadow: "0 30px 60px rgba(236, 72, 153, 0.15)" }}
-              className="p-8 rounded-3xl border-2 border-slate-100 shadow-lg transition-all duration-500 bg-white group relative overflow-hidden"
-            >
-              <motion.div 
-                className="absolute inset-0 bg-gradient-to-br from-pink-500/5 via-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              />
-              
-              <div className="absolute -left-8 -top-8 w-32 h-32 bg-pink-500/5 rounded-full blur-2xl"></div>
-              
-              <motion.div 
-                className="w-20 h-20 bg-gradient-to-br from-pink-600 to-pink-400 rounded-2xl flex items-center justify-center mb-6 text-white shadow-lg shadow-pink-600/30 relative z-10"
-                whileHover={{ rotate: [0, 10, -10, 10, 0], scale: 1.1 }}
-                transition={{ duration: 0.6 }}
-              >
-                <Sparkles className="w-10 h-10" />
-              </motion.div>
-              
-              <h3 className="text-2xl font-bold text-slate-900 mb-4 relative z-10">Content Optimization Engine</h3>
-              <p className="text-slate-600 text-base leading-relaxed relative z-10 mb-6">
-                Transform your website, pitch deck, and marketing materials with AI-driven insights that boost conversion by up to 3x.
-              </p>
-              
-              {/* Feature Details */}
-              <div className="space-y-3 mb-6">
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-pink-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-slate-700">Real-time content scoring and improvement suggestions</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-pink-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-slate-700">A/B testing recommendations for headlines and CTAs</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-pink-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-slate-700">SEO optimization with keyword suggestions</span>
-                </div>
-              </div>
-              
-              <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-                <span className="text-sm font-semibold text-pink-600">95% Accuracy</span>
-                <motion.div
-                  whileHover={{ x: 5 }}
-                  className="text-pink-600"
-                >
-                  <ArrowRight className="w-5 h-5" />
-                </motion.div>
-              </div>
-            </motion.div>
-
-            {/* Feature 3: Competitive Intelligence */}
-            <motion.div 
-              variants={fadeInUp}
-              whileHover={{ y: -12, boxShadow: "0 30px 60px rgba(249, 115, 22, 0.15)" }}
-              className="p-8 rounded-3xl border-2 border-slate-100 shadow-lg transition-all duration-500 bg-white group relative overflow-hidden"
-            >
-              <motion.div 
-                className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              />
-              
-              <div className="absolute -right-8 -bottom-8 w-32 h-32 bg-orange-500/5 rounded-full blur-2xl"></div>
-              
-              <motion.div 
-                className="w-20 h-20 bg-gradient-to-br from-orange-600 to-orange-400 rounded-2xl flex items-center justify-center mb-6 text-white shadow-lg shadow-orange-600/30 relative z-10"
-                whileHover={{ rotate: 360, scale: 1.1 }}
-                transition={{ duration: 0.6 }}
-              >
-                <Target className="w-10 h-10" />
-              </motion.div>
-              
-              <h3 className="text-2xl font-bold text-slate-900 mb-4 relative z-10">Competitive Intelligence</h3>
-              <p className="text-slate-600 text-base leading-relaxed relative z-10 mb-6">
-                Stay ahead with real-time competitive analysis. Track competitors' moves, identify gaps, and discover untapped opportunities.
-              </p>
-              
-              {/* Feature Details */}
-              <div className="space-y-3 mb-6">
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-slate-700">Monitor 50+ metrics across all competitors</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-slate-700">Automated alerts for competitive changes</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-slate-700">Market positioning and gap analysis</span>
-                </div>
-              </div>
-              
-              <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-                <span className="text-sm font-semibold text-orange-600">Real-Time Tracking</span>
-                <motion.div
-                  whileHover={{ x: 5 }}
-                  className="text-orange-600"
-                >
-                  <ArrowRight className="w-5 h-5" />
-                </motion.div>
-              </div>
-            </motion.div>
-
-            {/* Feature 4: Market Intelligence Dashboard */}
-            <motion.div 
-              variants={fadeInUp}
-              whileHover={{ y: -12, boxShadow: "0 30px 60px rgba(139, 92, 246, 0.15)" }}
-              className="p-8 rounded-3xl border-2 border-slate-100 shadow-lg transition-all duration-500 bg-white group relative overflow-hidden"
-            >
-              <motion.div 
-                className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              />
-              
-              <div className="absolute -left-8 -bottom-8 w-32 h-32 bg-purple-500/5 rounded-full blur-2xl"></div>
-              
-              <motion.div 
-                className="w-20 h-20 bg-gradient-to-br from-purple-600 to-purple-400 rounded-2xl flex items-center justify-center mb-6 text-white shadow-lg shadow-purple-600/30 relative z-10"
-                whileHover={{ rotate: [0, -15, 15, 0], scale: 1.1 }}
-                transition={{ duration: 0.6 }}
-              >
-                <BarChart3 className="w-10 h-10" />
-              </motion.div>
-              
-              <h3 className="text-2xl font-bold text-slate-900 mb-4 relative z-10">Market Intelligence Dashboard</h3>
-              <p className="text-slate-600 text-base leading-relaxed relative z-10 mb-6">
-                Access real-time market trends, industry insights, and data-driven forecasts to make informed strategic decisions.
-              </p>
-              
-              {/* Feature Details */}
-              <div className="space-y-3 mb-6">
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-slate-700">Industry trend analysis powered by Google Search</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-slate-700">Market size calculations and TAM/SAM/SOM</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-slate-700">Predictive analytics for growth opportunities</span>
-                </div>
-              </div>
-              
-              <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-                <span className="text-sm font-semibold text-purple-600">Live Data</span>
-                <motion.div
-                  whileHover={{ x: 5 }}
-                  className="text-purple-600"
-                >
-                  <ArrowRight className="w-5 h-5" />
-                </motion.div>
-              </div>
-            </motion.div>
-
-            {/* Feature 5: Pitch Deck Analyzer */}
-            <motion.div 
-              variants={fadeInUp}
-              whileHover={{ y: -12, boxShadow: "0 30px 60px rgba(16, 185, 129, 0.15)" }}
-              className="p-8 rounded-3xl border-2 border-slate-100 shadow-lg transition-all duration-500 bg-white group relative overflow-hidden"
-            >
-              <motion.div 
-                className="absolute inset-0 bg-gradient-to-br from-green-500/5 via-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              />
-              
-              <div className="absolute -right-8 -top-8 w-32 h-32 bg-green-500/5 rounded-full blur-2xl"></div>
-              
-              <motion.div 
-                className="w-20 h-20 bg-gradient-to-br from-green-600 to-green-400 rounded-2xl flex items-center justify-center mb-6 text-white shadow-lg shadow-green-600/30 relative z-10"
-                whileHover={{ scale: 1.1, rotate: [0, 5, -5, 0] }}
-                transition={{ duration: 0.6 }}
-              >
-                <FileText className="w-10 h-10" />
-              </motion.div>
-              
-              <h3 className="text-2xl font-bold text-slate-900 mb-4 relative z-10">Pitch Deck Analyzer</h3>
-              <p className="text-slate-600 text-base leading-relaxed relative z-10 mb-6">
-                Upload your pitch deck and get instant AI-powered feedback on structure, messaging, and investor appeal.
-              </p>
-              
-              {/* Feature Details */}
-              <div className="space-y-3 mb-6">
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-slate-700">Slide-by-slide analysis and recommendations</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-slate-700">Investor readiness score with improvement tips</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-slate-700">Benchmarking against successful decks</span>
-                </div>
-              </div>
-              
-              <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-                <span className="text-sm font-semibold text-green-600">Instant Analysis</span>
-                <motion.div
-                  whileHover={{ x: 5 }}
-                  className="text-green-600"
-                >
-                  <ArrowRight className="w-5 h-5" />
-                </motion.div>
-              </div>
-            </motion.div>
-
-            {/* Feature 6: Fundraising Assistant */}
-            <motion.div 
-              variants={fadeInUp}
-              whileHover={{ y: -12, boxShadow: "0 30px 60px rgba(99, 102, 241, 0.15)" }}
-              className="p-8 rounded-3xl border-2 border-slate-100 shadow-lg transition-all duration-500 bg-white group relative overflow-hidden"
-            >
-              <motion.div 
-                className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              />
-              
-              <div className="absolute -left-8 -top-8 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl"></div>
-              
-              <motion.div 
-                className="w-20 h-20 bg-gradient-to-br from-indigo-600 to-indigo-400 rounded-2xl flex items-center justify-center mb-6 text-white shadow-lg shadow-indigo-600/30 relative z-10"
-                whileHover={{ rotate: 360, scale: 1.1 }}
-                transition={{ duration: 0.6 }}
-              >
-                <DollarSign className="w-10 h-10" />
-              </motion.div>
-              
-              <h3 className="text-2xl font-bold text-slate-900 mb-4 relative z-10">Fundraising Assistant</h3>
-              <p className="text-slate-600 text-base leading-relaxed relative z-10 mb-6">
-                AI-generated investor emails, pitch deck outlines, and elevator pitches tailored to your startup and target audience.
-              </p>
-              
-              {/* Feature Details */}
-              <div className="space-y-3 mb-6">
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-slate-700">Personalized cold email templates</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-slate-700">Follow-up sequence automation</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-slate-700">Meeting scheduler and CRM integration</span>
-                </div>
-              </div>
-              
-              <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-                <span className="text-sm font-semibold text-indigo-600">AI-Powered</span>
-                <motion.div
-                  whileHover={{ x: 5 }}
-                  className="text-indigo-600"
-                >
-                  <ArrowRight className="w-5 h-5" />
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Additional Features Grid - Bonus Features */}
-          <motion.div 
-            variants={fadeInUp}
-            className="bg-gradient-to-br from-slate-50 to-blue-50/50 rounded-3xl p-12 border border-slate-200"
-          >
-            <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold text-slate-900 mb-4">Plus Many More Features</h3>
-              <p className="text-slate-600 text-lg">Everything you need in one powerful platform</p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                { icon: <Shield className="w-6 h-6" />, title: "Enterprise Security", desc: "Bank-level encryption for your data" },
-                { icon: <Globe className="w-6 h-6" />, title: "Multi-language", desc: "Support for 20+ languages" },
-                { icon: <Zap className="w-6 h-6" />, title: "API Access", desc: "Integrate with your tools" },
-                { icon: <Brain className="w-6 h-6" />, title: "Custom AI Models", desc: "Train on your data" },
-                { icon: <Users className="w-6 h-6" />, title: "Team Collaboration", desc: "Work together seamlessly" },
-                { icon: <Award className="w-6 h-6" />, title: "Expert Support", desc: "24/7 dedicated assistance" },
-                { icon: <LineChart className="w-6 h-6" />, title: "Advanced Analytics", desc: "Deep dive into metrics" },
-                { icon: <Briefcase className="w-6 h-6" />, title: "Document Vault", desc: "Secure file storage" },
-              ].map((feature, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ y: -5, boxShadow: "0 10px 30px rgba(0,0,0,0.1)" }}
-                  className="bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-300 transition-all"
-                >
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl flex items-center justify-center text-blue-600 mb-4">
-                    {feature.icon}
-                  </div>
-                  <h4 className="font-bold text-slate-900 mb-2">{feature.title}</h4>
-                  <p className="text-sm text-slate-600">{feature.desc}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* CTA Section */}
-          <motion.div 
-            variants={fadeInUp}
-            className="text-center mt-16"
-          >
-            <motion.button 
-              onClick={handleStart} 
-              className="group px-10 py-5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-bold text-lg inline-flex items-center relative overflow-hidden shadow-xl shadow-blue-600/30"
-              whileHover={{ scale: 1.05, boxShadow: "0 30px 60px rgba(59, 130, 246, 0.4)" }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600"
-                initial={{ x: "-100%" }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.4 }}
-              />
-              <span className="relative z-10">Start Building Your Success Story</span>
-              <ArrowRight className="w-5 h-5 ml-3 relative z-10 group-hover:translate-x-2 transition-transform" />
-            </motion.button>
-            <p className="text-slate-500 mt-4">No credit card required • 14-day free trial</p>
-          </motion.div>
-        </motion.div>
-      </section>
-
       {/* Stats Bar */}
       <section className="py-16 bg-white">
         <motion.div 
           className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false }}
+          viewport={{ once: true }}
           variants={scaleIn}
         >
           <motion.div 
@@ -1041,7 +617,6 @@ const HomePage: React.FC = () => {
               className="absolute -top-20 -right-20 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl"
               animate={{
                 scale: [1, 1.2, 1],
-                rotate: [0, 90, 0],
               }}
               transition={{
                 duration: 10,
@@ -1059,7 +634,7 @@ const HomePage: React.FC = () => {
                   key={index}
                   initial={{ opacity: 0, scale: 0.5 }}
                   whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: false }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   whileHover={{ scale: 1.1 }}
                   className={index === 3 ? "border-none" : ""}
@@ -1068,7 +643,7 @@ const HomePage: React.FC = () => {
                     className="text-4xl font-bold text-[#08D9D6] mb-2"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false }}
+                    viewport={{ once: true }}
                     transition={{ delay: index * 0.1 + 0.2 }}
                   >
                     {stat.value}
@@ -1098,7 +673,7 @@ const HomePage: React.FC = () => {
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-20 relative z-10"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false }}
+          viewport={{ once: true }}
           variants={fadeInUp}
         >
           <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">How FundSpark AI Works</h2>
@@ -1114,7 +689,7 @@ const HomePage: React.FC = () => {
               className="grid grid-cols-1 md:grid-cols-4 gap-8"
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false }}
+              viewport={{ once: true }}
               variants={staggerContainer}
             >
               {[
@@ -1174,7 +749,7 @@ const HomePage: React.FC = () => {
             className="text-center mt-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
           >
             <motion.button 
               onClick={handleStart} 
@@ -1215,7 +790,7 @@ const HomePage: React.FC = () => {
               className="text-center mb-12"
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false }}
+              viewport={{ once: true }}
               variants={fadeInUp}
             >
                 <motion.h2 
@@ -1236,7 +811,7 @@ const HomePage: React.FC = () => {
               className="space-y-4"
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false }}
+              viewport={{ once: true }}
               variants={staggerContainer}
             >
                 {scaleFeatures.map((feature, index) => (
@@ -1307,7 +882,6 @@ const HomePage: React.FC = () => {
           className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.3, 1],
-            rotate: [0, 90, 0],
           }}
           transition={{
             duration: 20,
@@ -1320,7 +894,7 @@ const HomePage: React.FC = () => {
             className="text-center mb-16"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             variants={fadeInUp}
           >
             <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">Simple, Transparent Pricing</h2>
@@ -1332,7 +906,7 @@ const HomePage: React.FC = () => {
             className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             variants={staggerContainer}
           >
             {[
@@ -1409,7 +983,7 @@ const HomePage: React.FC = () => {
                     className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#08D9D6] to-[#FF2E63] text-white px-6 py-1 rounded-full text-sm font-bold shadow-lg"
                     initial={{ y: -20, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
-                    viewport={{ once: false }}
+                    viewport={{ once: true }}
                     transition={{ delay: 0.3 }}
                   >
                     <motion.span
@@ -1463,7 +1037,7 @@ const HomePage: React.FC = () => {
                       className="flex items-start gap-3"
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: false }}
+                      viewport={{ once: true }}
                       transition={{ delay: index * 0.1 + i * 0.05 }}
                     >
                       <CheckCircle className={`w-5 h-5 flex-shrink-0 mt-0.5 ${
@@ -1481,7 +1055,7 @@ const HomePage: React.FC = () => {
             className="text-center mt-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             transition={{ delay: 0.4 }}
           >
             <p className="text-slate-600 text-lg mb-4">All plans include a 14-day money-back guarantee</p>
@@ -1521,7 +1095,7 @@ const HomePage: React.FC = () => {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             variants={fadeInUp}
           >
             <h2 className="text-lg font-semibold text-slate-900 mb-2">Enterprise-Grade Security & Compliance</h2>
@@ -1532,7 +1106,7 @@ const HomePage: React.FC = () => {
             className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-20"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             variants={staggerContainer}
           >
             {[
@@ -1578,7 +1152,7 @@ const HomePage: React.FC = () => {
             className="bg-white p-8 rounded-2xl border border-slate-200 inline-block w-full max-w-4xl shadow-sm relative overflow-hidden group"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             whileHover={{ 
               boxShadow: "0 25px 50px rgba(0,0,0,0.1)",
@@ -1594,7 +1168,7 @@ const HomePage: React.FC = () => {
                    className="text-lg font-bold text-slate-800"
                    initial={{ opacity: 0 }}
                    whileInView={{ opacity: 1 }}
-                   viewport={{ once: false }}
+                   viewport={{ once: true }}
                    transition={{ delay: 0.2 }}
                  >
                    Join hundreds of startups and venture capital firms who trust FundSpark AI with their most sensitive business data.
@@ -1603,7 +1177,7 @@ const HomePage: React.FC = () => {
                    className="flex gap-4"
                    initial="hidden"
                    whileInView="visible"
-                   viewport={{ once: false }}
+                   viewport={{ once: true }}
                    variants={staggerContainer}
                  >
                     {["ISO 27001", "PCI DSS", "Privacy Shield", "CCPA Compliant"].map((badge, i) => (
@@ -1621,7 +1195,7 @@ const HomePage: React.FC = () => {
                    className="flex gap-4 ml-auto"
                    initial="hidden"
                    whileInView="visible"
-                   viewport={{ once: false }}
+                   viewport={{ once: true }}
                    variants={staggerContainer}
                  >
                      <motion.div 
@@ -1651,7 +1225,7 @@ const HomePage: React.FC = () => {
         className="py-24 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white relative overflow-hidden"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false }}
+        viewport={{ once: true }}
       >
          {/* Animated Abstract Shapes */}
          <motion.div 
@@ -1684,7 +1258,6 @@ const HomePage: React.FC = () => {
            className="absolute top-1/2 left-1/2 w-72 h-72 bg-yellow-400/10 rounded-full blur-3xl"
            animate={{
              scale: [1, 1.5, 1],
-             rotate: [0, 180, 360],
            }}
            transition={{
              duration: 30,
@@ -1814,7 +1387,7 @@ const HomePage: React.FC = () => {
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12"
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false }}
+              viewport={{ once: true }}
               variants={staggerContainer}
             >
               {/* Company Info */}
@@ -1961,7 +1534,7 @@ const HomePage: React.FC = () => {
               className="border-t border-slate-800 pt-12 pb-8"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false }}
+              viewport={{ once: true }}
               transition={{ delay: 0.3 }}
             >
               <div className="max-w-2xl mx-auto text-center mb-8">
@@ -1989,7 +1562,7 @@ const HomePage: React.FC = () => {
               className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              viewport={{ once: false }}
+              viewport={{ once: true }}
               transition={{ delay: 0.4 }}
             >
               <p className="text-slate-400 text-sm">
