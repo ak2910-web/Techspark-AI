@@ -20,6 +20,129 @@ interface Startup {
   created_at: string;
 }
 
+const EXAMPLE_STARTUPS: Startup[] = [
+  {
+    id: 1,
+    name: "HealthAI Pro",
+    website: "https://healthai.example.com",
+    description: "AI-powered diagnostic platform that helps healthcare providers detect diseases early through advanced machine learning algorithms and medical imaging analysis.",
+    industry: "HealthTech",
+    stage: "Series A",
+    location: "San Francisco, CA",
+    created_at: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 2,
+    name: "GreenEnergy Solutions",
+    website: "https://greenenergy.example.com",
+    description: "Sustainable energy management platform for commercial buildings. Reduces energy costs by 40% through smart automation and renewable energy integration.",
+    industry: "CleanTech",
+    stage: "Seed",
+    location: "Austin, TX",
+    created_at: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 3,
+    name: "EduConnect",
+    website: "https://educonnect.example.com",
+    description: "Revolutionary EdTech platform connecting students with personalized learning paths and expert tutors. Powered by adaptive learning technology.",
+    industry: "EdTech",
+    stage: "Pre-Seed",
+    location: "Boston, MA",
+    created_at: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 4,
+    name: "FinFlow",
+    website: "https://finflow.example.com",
+    description: "Next-generation financial management for SMBs. Automate invoicing, expense tracking, and cash flow forecasting with AI-driven insights.",
+    industry: "FinTech",
+    stage: "Series A",
+    location: "New York, NY",
+    created_at: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 5,
+    name: "FoodFusion",
+    website: "https://foodfusion.example.com",
+    description: "Cloud kitchen platform optimizing food delivery operations. Connect restaurants with customers while reducing waste and improving margins.",
+    industry: "FoodTech",
+    stage: "Seed",
+    location: "Los Angeles, CA",
+    created_at: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 6,
+    name: "CyberShield",
+    website: "https://cybershield.example.com",
+    description: "Enterprise cybersecurity platform providing real-time threat detection and automated response. Protecting businesses from modern cyber threats.",
+    industry: "CyberSecurity",
+    stage: "Series B",
+    location: "Seattle, WA",
+    created_at: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 7,
+    name: "AgriTech Innovations",
+    website: "https://agritech.example.com",
+    description: "Precision agriculture platform using IoT sensors and AI to optimize crop yields and reduce water usage by 50%.",
+    industry: "AgriTech",
+    stage: "Seed",
+    location: "Denver, CO",
+    created_at: new Date(Date.now() - 25 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 8,
+    name: "LogiChain",
+    website: "https://logichain.example.com",
+    description: "Blockchain-based supply chain tracking platform ensuring transparency and authenticity from manufacturer to consumer.",
+    industry: "Logistics",
+    stage: "Pre-Seed",
+    location: "Chicago, IL",
+    created_at: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 9,
+    name: "TravelEase",
+    website: "https://travelease.example.com",
+    description: "AI-powered travel planning assistant that creates personalized itineraries and handles all bookings through a single interface.",
+    industry: "Travel",
+    stage: "Seed",
+    location: "Miami, FL",
+    created_at: new Date(Date.now() - 35 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 10,
+    name: "PropTech Ventures",
+    website: "https://proptech.example.com",
+    description: "Real estate investment platform democratizing property investing through fractional ownership and blockchain technology.",
+    industry: "PropTech",
+    stage: "Series A",
+    location: "San Diego, CA",
+    created_at: new Date(Date.now() - 50 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 11,
+    name: "FitnessPro AI",
+    website: "https://fitnesspro.example.com",
+    description: "Personal fitness coach in your pocket. AI-driven workout plans, nutrition tracking, and real-time form correction using computer vision.",
+    industry: "FitnessTech",
+    stage: "Pre-Seed",
+    location: "Portland, OR",
+    created_at: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 12,
+    name: "CloudFactory",
+    website: "https://cloudfactory.example.com",
+    description: "DevOps automation platform that reduces deployment time by 80%. Multi-cloud support with advanced monitoring and scaling.",
+    industry: "SaaS",
+    stage: "Series A",
+    location: "San Francisco, CA",
+    created_at: new Date(Date.now() - 70 * 24 * 60 * 60 * 1000).toISOString()
+  }
+];
+
 const StartupExplorerPage: React.FC = () => {
   const navigate = useNavigate();
   const [startups, setStartups] = useState<Startup[]>([]);
@@ -38,10 +161,15 @@ const StartupExplorerPage: React.FC = () => {
       const response = await fetch(`${API_BASE}/startups`);
       if (response.ok) {
         const data = await response.json();
-        setStartups(data);
+        setStartups(data.length > 0 ? data : EXAMPLE_STARTUPS);
+      } else {
+        // If API fails, use example startups
+        setStartups(EXAMPLE_STARTUPS);
       }
     } catch (error) {
       console.error('Error fetching startups:', error);
+      // Use example startups as fallback
+      setStartups(EXAMPLE_STARTUPS);
     } finally {
       setLoading(false);
     }

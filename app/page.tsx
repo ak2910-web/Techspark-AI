@@ -5,7 +5,8 @@ import { useTheme } from '../contexts/ThemeContext';
 import { 
   Rocket, CheckCircle, Zap, BarChart3, Users, ArrowRight, Star, 
   ChevronDown, ChevronUp, Shield, Globe, Menu, X, Lock, Eye, Search, Sparkles,
-  TrendingUp, Target, Lightbulb, Award, Briefcase, DollarSign, LineChart, PieChart
+  TrendingUp, Target, Lightbulb, Award, Briefcase, DollarSign, LineChart, PieChart,
+  FileText, Brain
 } from 'lucide-react';
 import Button from '../components/ui/Button';
 import ThemeToggle from '../components/ThemeToggle';
@@ -32,6 +33,10 @@ const HomePage: React.FC = () => {
 
   const handleStart = () => {
     navigate('/startup/dashboard');
+  };
+
+  const handleLogin = () => {
+    navigate('/login');
   };
 
   // Animation variants
@@ -192,12 +197,13 @@ const HomePage: React.FC = () => {
               ))}
               <ThemeToggle />
               <motion.button 
-                onClick={handleStart} 
-                className={`${isDarkMode ? 'text-white hover:text-[#08D9D6]' : 'text-slate-900 hover:text-blue-600'} font-semibold text-sm transition-colors`}
+                onClick={handleLogin} 
+                className={`${isDarkMode ? 'text-white hover:text-[#08D9D6]' : 'text-slate-900 hover:text-blue-600'} font-semibold text-sm transition-colors cursor-pointer`}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
                 whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 Sign In
               </motion.button>
@@ -208,7 +214,7 @@ const HomePage: React.FC = () => {
               >
                 <Button 
                   onClick={handleStart} 
-                  className="bg-slate-900 text-white hover:bg-slate-800 shadow-lg shadow-slate-900/20 relative overflow-hidden group"
+                  className="bg-slate-900 text-white hover:bg-slate-800 shadow-lg shadow-slate-900/20 relative overflow-hidden group cursor-pointer"
                 >
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600"
@@ -256,8 +262,11 @@ const HomePage: React.FC = () => {
               </motion.a>
             ))}
             <motion.button 
-              onClick={handleStart} 
-              className="block w-full text-left text-slate-900 font-bold p-2 hover:bg-slate-50 rounded"
+              onClick={() => {
+                handleLogin();
+                setIsMenuOpen(false);
+              }} 
+              className="block w-full text-left text-slate-900 font-bold p-2 hover:bg-slate-50 rounded cursor-pointer"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
@@ -269,7 +278,15 @@ const HomePage: React.FC = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 }}
             >
-              <Button onClick={handleStart} className="w-full bg-slate-900 mt-4">Start Free Trial</Button>
+              <Button 
+                onClick={() => {
+                  handleStart();
+                  setIsMenuOpen(false);
+                }} 
+                className="w-full bg-slate-900 mt-4 cursor-pointer"
+              >
+                Start Free Trial
+              </Button>
             </motion.div>
           </motion.div>
         )}
@@ -523,20 +540,20 @@ const HomePage: React.FC = () => {
                   {/* Stats Row */}
                   <div className="grid grid-cols-4 gap-4">
                     {[
-                      { label: "Active Investors", value: "1,234", icon: Users, color: "blue" },
-                      { label: "Content Score", value: "92%", icon: TrendingUp, color: "green" },
-                      { label: "Market Rank", value: "#12", icon: Target, color: "purple" },
-                      { label: "Growth Rate", value: "+45%", icon: LineChart, color: "orange" }
+                      { label: "Active Investors", value: "1,234", icon: Users, colorClass: "bg-gradient-to-br from-blue-500/10 to-blue-600/5 border-blue-500/20", iconColor: "text-blue-400", textColor: "text-blue-400" },
+                      { label: "Content Score", value: "92%", icon: TrendingUp, colorClass: "bg-gradient-to-br from-green-500/10 to-green-600/5 border-green-500/20", iconColor: "text-green-400", textColor: "text-green-400" },
+                      { label: "Market Rank", value: "#12", icon: Target, colorClass: "bg-gradient-to-br from-purple-500/10 to-purple-600/5 border-purple-500/20", iconColor: "text-purple-400", textColor: "text-purple-400" },
+                      { label: "Growth Rate", value: "+45%", icon: LineChart, colorClass: "bg-gradient-to-br from-orange-500/10 to-orange-600/5 border-orange-500/20", iconColor: "text-orange-400", textColor: "text-orange-400" }
                     ].map((stat, i) => (
                       <motion.div
                         key={i}
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.8 + i * 0.1 }}
-                        className={`bg-gradient-to-br from-${stat.color}-500/10 to-${stat.color}-600/5 rounded-lg p-4 border border-${stat.color}-500/20`}
+                        className={`${stat.colorClass} rounded-lg p-4 border`}
                       >
-                        <stat.icon className={`w-5 h-5 text-${stat.color}-400 mb-2`} />
-                        <div className={`text-2xl font-bold text-${stat.color}-400`}>{stat.value}</div>
+                        <stat.icon className={`w-5 h-5 ${stat.iconColor} mb-2`} />
+                        <div className={`text-2xl font-bold ${stat.textColor}`}>{stat.value}</div>
                         <div className="text-xs text-slate-400">{stat.label}</div>
                       </motion.div>
                     ))}
@@ -558,9 +575,9 @@ const HomePage: React.FC = () => {
                   {/* Activity Feed */}
                   <div className="space-y-2">
                     {[
-                      { text: "New investor match: Sequoia Capital", icon: Award, color: "green" },
-                      { text: "Content optimization completed", icon: Lightbulb, color: "yellow" },
-                      { text: "Competitor analysis updated", icon: Target, color: "blue" }
+                      { text: "New investor match: Sequoia Capital", icon: Award, bgClass: "bg-green-500/20", iconColor: "text-green-400" },
+                      { text: "Content optimization completed", icon: Lightbulb, bgClass: "bg-yellow-500/20", iconColor: "text-yellow-400" },
+                      { text: "Competitor analysis updated", icon: Target, bgClass: "bg-blue-500/20", iconColor: "text-blue-400" }
                     ].map((activity, i) => (
                       <motion.div
                         key={i}
@@ -569,8 +586,8 @@ const HomePage: React.FC = () => {
                         transition={{ delay: 1.5 + i * 0.2 }}
                         className="flex items-center gap-3 bg-slate-700/30 rounded-lg p-3"
                       >
-                        <div className={`w-8 h-8 rounded-full bg-${activity.color}-500/20 flex items-center justify-center`}>
-                          <activity.icon className={`w-4 h-4 text-${activity.color}-400`} />
+                        <div className={`w-8 h-8 rounded-full ${activity.bgClass} flex items-center justify-center`}>
+                          <activity.icon className={`w-4 h-4 ${activity.iconColor}`} />
                         </div>
                         <span className="text-sm text-slate-300">{activity.text}</span>
                         <span className="ml-auto text-xs text-slate-500">Just now</span>
@@ -584,8 +601,22 @@ const HomePage: React.FC = () => {
         </div>
       </motion.section>
 
-      {/* Feature Highlights Cards */}
-      <section id="features" className="py-20 bg-gradient-to-b from-white via-blue-50/30 to-white">
+      {/* Feature Highlights - Enhanced and Detailed */}
+      <section id="features" className="py-32 bg-gradient-to-b from-white via-blue-50/30 to-white relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] -z-10"></div>
+        <motion.div 
+          className="absolute top-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            x: [0, 50, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+          }}
+        />
+        
         <motion.div 
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
           initial="hidden"
@@ -593,141 +624,403 @@ const HomePage: React.FC = () => {
           viewport={{ once: false, margin: "-100px", amount: 0.3 }}
           variants={staggerContainer}
         >
-          <motion.div variants={fadeInUp} className="text-center mb-16">
-            <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">Powerful Features</h2>
-            <h3 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">Everything you need to succeed</h3>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">AI-powered tools that give your startup an unfair advantage</p>
+          {/* Section Header */}
+          <motion.div variants={fadeInUp} className="text-center mb-20">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              className="inline-block"
+            >
+              <span className="text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 uppercase tracking-wider mb-3 block">
+                Powerful Features
+              </span>
+            </motion.div>
+            <h3 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
+              Everything you need to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">succeed</span>
+            </h3>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              AI-powered platform with comprehensive tools designed to accelerate your startup's growth at every stage
+            </p>
           </motion.div>
 
-           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-             {/* Orange Card with Visual */}
-             <motion.div 
-               variants={fadeInLeft}
-               whileHover={{ y: -10, boxShadow: "0 25px 50px rgba(249, 115, 22, 0.15)" }}
-               animate={{ 
-                 y: [0, -10, 0],
-               }}
-               transition={{ 
-                 y: { duration: 4, repeat: Infinity, ease: "easeInOut" }
-               }}
-               className="p-10 rounded-3xl border border-slate-100 shadow-lg transition-all duration-300 bg-white group relative overflow-hidden"
-             >
-                <motion.div 
-                  className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                />
-                
-                {/* Decorative circles */}
-                <div className="absolute -right-10 -top-10 w-40 h-40 bg-orange-500/5 rounded-full blur-2xl"></div>
-                <div className="absolute -right-5 -top-5 w-20 h-20 bg-orange-500/10 rounded-full"></div>
-                
-                <motion.div 
-                  className="w-16 h-16 bg-gradient-to-br from-[#08D9D6] to-[#252A34] rounded-2xl flex items-center justify-center mb-6 text-white shadow-lg shadow-[#08D9D6]/30 relative z-10"
-                  whileHover={{ rotate: 360, scale: 1.1 }}
-                  animate={{ 
-                    rotate: [0, 5, -5, 0],
-                    scale: [1, 1.05, 1],
-                  }}
-                  transition={{ 
-                    rotate: { duration: 3, repeat: Infinity },
-                    scale: { duration: 2, repeat: Infinity }
-                  }}
+          {/* Main Feature Grid - 6 Detailed Features */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+            {/* Feature 1: AI-Powered Investor Matching */}
+            <motion.div 
+              variants={fadeInUp}
+              whileHover={{ y: -12, boxShadow: "0 30px 60px rgba(59, 130, 246, 0.15)" }}
+              className="p-8 rounded-3xl border-2 border-slate-100 shadow-lg transition-all duration-500 bg-white group relative overflow-hidden"
+            >
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              />
+              
+              <div className="absolute -right-8 -top-8 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl"></div>
+              
+              <motion.div 
+                className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-400 rounded-2xl flex items-center justify-center mb-6 text-white shadow-lg shadow-blue-600/30 relative z-10"
+                whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
+                transition={{ duration: 0.6 }}
+              >
+                <Users className="w-10 h-10" />
+              </motion.div>
+              
+              <h3 className="text-2xl font-bold text-slate-900 mb-4 relative z-10">AI-Powered Investor Matching</h3>
+              <p className="text-slate-600 text-base leading-relaxed relative z-10 mb-6">
+                Connect with the right investors who align with your industry, stage, and vision. Our AI analyzes 10,000+ investors to find your perfect match.
+              </p>
+              
+              {/* Feature Details */}
+              <div className="space-y-3 mb-6">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-slate-700">Smart matching algorithm considers 50+ data points</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-slate-700">Access to verified investor profiles and portfolios</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-slate-700">Automated outreach templates and follow-ups</span>
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                <span className="text-sm font-semibold text-blue-600">10K+ Investors</span>
+                <motion.div
+                  whileHover={{ x: 5 }}
+                  className="text-blue-600"
                 >
-                  <Zap className="w-8 h-8" />
+                  <ArrowRight className="w-5 h-5" />
                 </motion.div>
-                
-                <h3 className="text-2xl font-bold text-slate-900 mb-4 relative z-10">Competitive Benchmarking</h3>
-                <p className="text-slate-600 text-lg leading-relaxed relative z-10 mb-6">
-                  Compare your online presence against competitors and industry leaders to identify gaps and opportunities.
-                </p>
-                
-                {/* Mini visualization */}
-                <div className="flex items-end gap-2 h-16 mb-4">
-                  {[60, 80, 70, 90, 65, 85].map((height, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ height: 0 }}
-                      whileInView={{ height: `${height}%` }}
-                      viewport={{ once: false }}
-                      transition={{ delay: i * 0.1 }}
-                      className="flex-1 bg-gradient-to-t from-orange-500 to-orange-300 rounded-t"
-                    />
-                  ))}
-                </div>
-                
-                <div className="flex items-center gap-2 text-sm text-orange-600 font-semibold">
-                  <TrendingUp className="w-4 h-4" />
-                  Track 50+ metrics
-                </div>
-             </motion.div>
+              </div>
+            </motion.div>
 
-             {/* Pink Card with Visual */}
-             <motion.div 
-               variants={fadeInRight}
-               whileHover={{ y: -10, boxShadow: "0 25px 50px rgba(236, 72, 153, 0.15)" }}
-               animate={{ 
-                 y: [0, -10, 0],
-               }}
-               transition={{ 
-                 y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }
-               }}
-               className="p-10 rounded-3xl border border-slate-100 shadow-lg transition-all duration-300 bg-white group relative overflow-hidden"
-             >
-                <motion.div 
-                  className="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                />
-                
-                {/* Decorative circles */}
-                <div className="absolute -left-10 -top-10 w-40 h-40 bg-pink-500/5 rounded-full blur-2xl"></div>
-                <div className="absolute -left-5 -top-5 w-20 h-20 bg-pink-500/10 rounded-full"></div>
-                
-                <motion.div 
-                  className="w-16 h-16 bg-gradient-to-br from-[#FF2E63] to-[#252A34] rounded-2xl flex items-center justify-center mb-6 text-white shadow-lg shadow-[#FF2E63]/30 relative z-10"
-                  whileHover={{ rotate: 360, scale: 1.1 }}
-                  animate={{ 
-                    rotate: [0, -5, 5, 0],
-                    scale: [1, 1.05, 1],
-                  }}
-                  transition={{ 
-                    rotate: { duration: 3, repeat: Infinity },
-                    scale: { duration: 2, repeat: Infinity, delay: 0.3 }
-                  }}
+            {/* Feature 2: Content Optimization Engine */}
+            <motion.div 
+              variants={fadeInUp}
+              whileHover={{ y: -12, boxShadow: "0 30px 60px rgba(236, 72, 153, 0.15)" }}
+              className="p-8 rounded-3xl border-2 border-slate-100 shadow-lg transition-all duration-500 bg-white group relative overflow-hidden"
+            >
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-br from-pink-500/5 via-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              />
+              
+              <div className="absolute -left-8 -top-8 w-32 h-32 bg-pink-500/5 rounded-full blur-2xl"></div>
+              
+              <motion.div 
+                className="w-20 h-20 bg-gradient-to-br from-pink-600 to-pink-400 rounded-2xl flex items-center justify-center mb-6 text-white shadow-lg shadow-pink-600/30 relative z-10"
+                whileHover={{ rotate: [0, 10, -10, 10, 0], scale: 1.1 }}
+                transition={{ duration: 0.6 }}
+              >
+                <Sparkles className="w-10 h-10" />
+              </motion.div>
+              
+              <h3 className="text-2xl font-bold text-slate-900 mb-4 relative z-10">Content Optimization Engine</h3>
+              <p className="text-slate-600 text-base leading-relaxed relative z-10 mb-6">
+                Transform your website, pitch deck, and marketing materials with AI-driven insights that boost conversion by up to 3x.
+              </p>
+              
+              {/* Feature Details */}
+              <div className="space-y-3 mb-6">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-pink-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-slate-700">Real-time content scoring and improvement suggestions</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-pink-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-slate-700">A/B testing recommendations for headlines and CTAs</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-pink-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-slate-700">SEO optimization with keyword suggestions</span>
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                <span className="text-sm font-semibold text-pink-600">95% Accuracy</span>
+                <motion.div
+                  whileHover={{ x: 5 }}
+                  className="text-pink-600"
                 >
-                  <Eye className="w-8 h-8" />
+                  <ArrowRight className="w-5 h-5" />
                 </motion.div>
-                
-                <h3 className="text-2xl font-bold text-slate-900 mb-4 relative z-10">Smart Optimization</h3>
-                <p className="text-slate-600 text-lg leading-relaxed relative z-10 mb-6">
-                  Get AI-powered quick wins to boost visibility and accelerate growth with actionable content suggestions.
-                </p>
-                
-                {/* Content suggestions visual */}
-                <div className="space-y-2 mb-4">
-                  {[
-                    { text: "Improve CTA placement", score: 92 },
-                    { text: "Enhance headline clarity", score: 88 },
-                    { text: "Optimize meta description", score: 95 }
-                  ].map((item, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: false }}
-                      transition={{ delay: i * 0.1 }}
-                      className="flex items-center gap-3 text-sm"
-                    >
-                      <div className="w-2 h-2 rounded-full bg-pink-500"></div>
-                      <span className="flex-1 text-slate-700">{item.text}</span>
-                      <span className="font-bold text-pink-600">{item.score}%</span>
-                    </motion.div>
-                  ))}
+              </div>
+            </motion.div>
+
+            {/* Feature 3: Competitive Intelligence */}
+            <motion.div 
+              variants={fadeInUp}
+              whileHover={{ y: -12, boxShadow: "0 30px 60px rgba(249, 115, 22, 0.15)" }}
+              className="p-8 rounded-3xl border-2 border-slate-100 shadow-lg transition-all duration-500 bg-white group relative overflow-hidden"
+            >
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              />
+              
+              <div className="absolute -right-8 -bottom-8 w-32 h-32 bg-orange-500/5 rounded-full blur-2xl"></div>
+              
+              <motion.div 
+                className="w-20 h-20 bg-gradient-to-br from-orange-600 to-orange-400 rounded-2xl flex items-center justify-center mb-6 text-white shadow-lg shadow-orange-600/30 relative z-10"
+                whileHover={{ rotate: 360, scale: 1.1 }}
+                transition={{ duration: 0.6 }}
+              >
+                <Target className="w-10 h-10" />
+              </motion.div>
+              
+              <h3 className="text-2xl font-bold text-slate-900 mb-4 relative z-10">Competitive Intelligence</h3>
+              <p className="text-slate-600 text-base leading-relaxed relative z-10 mb-6">
+                Stay ahead with real-time competitive analysis. Track competitors' moves, identify gaps, and discover untapped opportunities.
+              </p>
+              
+              {/* Feature Details */}
+              <div className="space-y-3 mb-6">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-slate-700">Monitor 50+ metrics across all competitors</span>
                 </div>
-                
-                <div className="flex items-center gap-2 text-sm text-pink-600 font-semibold">
-                  <Sparkles className="w-4 h-4" />
-                  AI-powered insights
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-slate-700">Automated alerts for competitive changes</span>
                 </div>
-             </motion.div>
-           </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-slate-700">Market positioning and gap analysis</span>
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                <span className="text-sm font-semibold text-orange-600">Real-Time Tracking</span>
+                <motion.div
+                  whileHover={{ x: 5 }}
+                  className="text-orange-600"
+                >
+                  <ArrowRight className="w-5 h-5" />
+                </motion.div>
+              </div>
+            </motion.div>
+
+            {/* Feature 4: Market Intelligence Dashboard */}
+            <motion.div 
+              variants={fadeInUp}
+              whileHover={{ y: -12, boxShadow: "0 30px 60px rgba(139, 92, 246, 0.15)" }}
+              className="p-8 rounded-3xl border-2 border-slate-100 shadow-lg transition-all duration-500 bg-white group relative overflow-hidden"
+            >
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              />
+              
+              <div className="absolute -left-8 -bottom-8 w-32 h-32 bg-purple-500/5 rounded-full blur-2xl"></div>
+              
+              <motion.div 
+                className="w-20 h-20 bg-gradient-to-br from-purple-600 to-purple-400 rounded-2xl flex items-center justify-center mb-6 text-white shadow-lg shadow-purple-600/30 relative z-10"
+                whileHover={{ rotate: [0, -15, 15, 0], scale: 1.1 }}
+                transition={{ duration: 0.6 }}
+              >
+                <BarChart3 className="w-10 h-10" />
+              </motion.div>
+              
+              <h3 className="text-2xl font-bold text-slate-900 mb-4 relative z-10">Market Intelligence Dashboard</h3>
+              <p className="text-slate-600 text-base leading-relaxed relative z-10 mb-6">
+                Access real-time market trends, industry insights, and data-driven forecasts to make informed strategic decisions.
+              </p>
+              
+              {/* Feature Details */}
+              <div className="space-y-3 mb-6">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-slate-700">Industry trend analysis powered by Google Search</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-slate-700">Market size calculations and TAM/SAM/SOM</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-slate-700">Predictive analytics for growth opportunities</span>
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                <span className="text-sm font-semibold text-purple-600">Live Data</span>
+                <motion.div
+                  whileHover={{ x: 5 }}
+                  className="text-purple-600"
+                >
+                  <ArrowRight className="w-5 h-5" />
+                </motion.div>
+              </div>
+            </motion.div>
+
+            {/* Feature 5: Pitch Deck Analyzer */}
+            <motion.div 
+              variants={fadeInUp}
+              whileHover={{ y: -12, boxShadow: "0 30px 60px rgba(16, 185, 129, 0.15)" }}
+              className="p-8 rounded-3xl border-2 border-slate-100 shadow-lg transition-all duration-500 bg-white group relative overflow-hidden"
+            >
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-br from-green-500/5 via-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              />
+              
+              <div className="absolute -right-8 -top-8 w-32 h-32 bg-green-500/5 rounded-full blur-2xl"></div>
+              
+              <motion.div 
+                className="w-20 h-20 bg-gradient-to-br from-green-600 to-green-400 rounded-2xl flex items-center justify-center mb-6 text-white shadow-lg shadow-green-600/30 relative z-10"
+                whileHover={{ scale: 1.1, rotate: [0, 5, -5, 0] }}
+                transition={{ duration: 0.6 }}
+              >
+                <FileText className="w-10 h-10" />
+              </motion.div>
+              
+              <h3 className="text-2xl font-bold text-slate-900 mb-4 relative z-10">Pitch Deck Analyzer</h3>
+              <p className="text-slate-600 text-base leading-relaxed relative z-10 mb-6">
+                Upload your pitch deck and get instant AI-powered feedback on structure, messaging, and investor appeal.
+              </p>
+              
+              {/* Feature Details */}
+              <div className="space-y-3 mb-6">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-slate-700">Slide-by-slide analysis and recommendations</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-slate-700">Investor readiness score with improvement tips</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-slate-700">Benchmarking against successful decks</span>
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                <span className="text-sm font-semibold text-green-600">Instant Analysis</span>
+                <motion.div
+                  whileHover={{ x: 5 }}
+                  className="text-green-600"
+                >
+                  <ArrowRight className="w-5 h-5" />
+                </motion.div>
+              </div>
+            </motion.div>
+
+            {/* Feature 6: Fundraising Assistant */}
+            <motion.div 
+              variants={fadeInUp}
+              whileHover={{ y: -12, boxShadow: "0 30px 60px rgba(99, 102, 241, 0.15)" }}
+              className="p-8 rounded-3xl border-2 border-slate-100 shadow-lg transition-all duration-500 bg-white group relative overflow-hidden"
+            >
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              />
+              
+              <div className="absolute -left-8 -top-8 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl"></div>
+              
+              <motion.div 
+                className="w-20 h-20 bg-gradient-to-br from-indigo-600 to-indigo-400 rounded-2xl flex items-center justify-center mb-6 text-white shadow-lg shadow-indigo-600/30 relative z-10"
+                whileHover={{ rotate: 360, scale: 1.1 }}
+                transition={{ duration: 0.6 }}
+              >
+                <DollarSign className="w-10 h-10" />
+              </motion.div>
+              
+              <h3 className="text-2xl font-bold text-slate-900 mb-4 relative z-10">Fundraising Assistant</h3>
+              <p className="text-slate-600 text-base leading-relaxed relative z-10 mb-6">
+                AI-generated investor emails, pitch deck outlines, and elevator pitches tailored to your startup and target audience.
+              </p>
+              
+              {/* Feature Details */}
+              <div className="space-y-3 mb-6">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-slate-700">Personalized cold email templates</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-slate-700">Follow-up sequence automation</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-slate-700">Meeting scheduler and CRM integration</span>
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                <span className="text-sm font-semibold text-indigo-600">AI-Powered</span>
+                <motion.div
+                  whileHover={{ x: 5 }}
+                  className="text-indigo-600"
+                >
+                  <ArrowRight className="w-5 h-5" />
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Additional Features Grid - Bonus Features */}
+          <motion.div 
+            variants={fadeInUp}
+            className="bg-gradient-to-br from-slate-50 to-blue-50/50 rounded-3xl p-12 border border-slate-200"
+          >
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold text-slate-900 mb-4">Plus Many More Features</h3>
+              <p className="text-slate-600 text-lg">Everything you need in one powerful platform</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { icon: <Shield className="w-6 h-6" />, title: "Enterprise Security", desc: "Bank-level encryption for your data" },
+                { icon: <Globe className="w-6 h-6" />, title: "Multi-language", desc: "Support for 20+ languages" },
+                { icon: <Zap className="w-6 h-6" />, title: "API Access", desc: "Integrate with your tools" },
+                { icon: <Brain className="w-6 h-6" />, title: "Custom AI Models", desc: "Train on your data" },
+                { icon: <Users className="w-6 h-6" />, title: "Team Collaboration", desc: "Work together seamlessly" },
+                { icon: <Award className="w-6 h-6" />, title: "Expert Support", desc: "24/7 dedicated assistance" },
+                { icon: <LineChart className="w-6 h-6" />, title: "Advanced Analytics", desc: "Deep dive into metrics" },
+                { icon: <Briefcase className="w-6 h-6" />, title: "Document Vault", desc: "Secure file storage" },
+              ].map((feature, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ y: -5, boxShadow: "0 10px 30px rgba(0,0,0,0.1)" }}
+                  className="bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-300 transition-all"
+                >
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl flex items-center justify-center text-blue-600 mb-4">
+                    {feature.icon}
+                  </div>
+                  <h4 className="font-bold text-slate-900 mb-2">{feature.title}</h4>
+                  <p className="text-sm text-slate-600">{feature.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* CTA Section */}
+          <motion.div 
+            variants={fadeInUp}
+            className="text-center mt-16"
+          >
+            <motion.button 
+              onClick={handleStart} 
+              className="group px-10 py-5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-bold text-lg inline-flex items-center relative overflow-hidden shadow-xl shadow-blue-600/30"
+              whileHover={{ scale: 1.05, boxShadow: "0 30px 60px rgba(59, 130, 246, 0.4)" }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600"
+                initial={{ x: "-100%" }}
+                whileHover={{ x: 0 }}
+                transition={{ duration: 0.4 }}
+              />
+              <span className="relative z-10">Start Building Your Success Story</span>
+              <ArrowRight className="w-5 h-5 ml-3 relative z-10 group-hover:translate-x-2 transition-transform" />
+            </motion.button>
+            <p className="text-slate-500 mt-4">No credit card required • 14-day free trial</p>
+          </motion.div>
         </motion.div>
       </section>
 
@@ -825,10 +1118,10 @@ const HomePage: React.FC = () => {
               variants={staggerContainer}
             >
               {[
-                { title: "Sign Up & Connect", desc: "Create your account and connect your startup data sources in under 5 minutes", step: 1, icon: <Rocket className="w-6 h-6"/>, color: "blue" },
-                { title: "AI Analysis", desc: "Our AI analyzes your market, competitors, content, and identifies growth opportunities", step: 2, icon: <Zap className="w-6 h-6"/>, color: "purple" },
-                { title: "Get Insights", desc: "Receive personalized recommendations, investor matches, and actionable strategies", step: 3, icon: <Eye className="w-6 h-6"/>, color: "pink" },
-                { title: "Grow & Scale", desc: "Implement AI-powered strategies and track your progress with real-time analytics", step: 4, icon: <BarChart3 className="w-6 h-6"/>, color: "green" },
+                { title: "Sign Up & Connect", desc: "Create your account and connect your startup data sources in under 5 minutes", step: 1, icon: <Rocket className="w-6 h-6"/>, gradientBg: "from-blue-500/5", bgClass: "bg-blue-50", textClass: "text-blue-600" },
+                { title: "AI Analysis", desc: "Our AI analyzes your market, competitors, content, and identifies growth opportunities", step: 2, icon: <Zap className="w-6 h-6"/>, gradientBg: "from-purple-500/5", bgClass: "bg-purple-50", textClass: "text-purple-600" },
+                { title: "Get Insights", desc: "Receive personalized recommendations, investor matches, and actionable strategies", step: 3, icon: <Eye className="w-6 h-6"/>, gradientBg: "from-pink-500/5", bgClass: "bg-pink-50", textClass: "text-pink-600" },
+                { title: "Grow & Scale", desc: "Implement AI-powered strategies and track your progress with real-time analytics", step: 4, icon: <BarChart3 className="w-6 h-6"/>, gradientBg: "from-green-500/5", bgClass: "bg-green-50", textClass: "text-green-600" },
               ].map((item, i) => (
                 <motion.div 
                   key={i} 
@@ -860,10 +1153,10 @@ const HomePage: React.FC = () => {
                     }}
                   >
                     <motion.div 
-                      className={`absolute inset-0 bg-gradient-to-br from-${item.color}-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity`}
+                      className={`absolute inset-0 bg-gradient-to-br ${item.gradientBg} to-transparent opacity-0 group-hover:opacity-100 transition-opacity`}
                     />
                     <motion.div 
-                      className={`mb-4 inline-block p-3 bg-${item.color}-50 rounded-lg text-${item.color}-600 relative z-10`}
+                      className={`mb-4 inline-block p-3 ${item.bgClass} rounded-lg ${item.textClass} relative z-10`}
                       whileHover={{ rotate: [0, -10, 10, -10, 0] }}
                       transition={{ duration: 0.5 }}
                     >
@@ -1243,10 +1536,10 @@ const HomePage: React.FC = () => {
             variants={staggerContainer}
           >
             {[
-                { icon: <Shield className="w-8 h-8 text-blue-600"/>, title: "SOC 2 Certified", desc: "Type II compliance ensuring highest security standards", color: "blue" },
-                { icon: <Lock className="w-8 h-8 text-purple-600"/>, title: "256-bit SSL", desc: "Bank-level encryption for all data in transit", color: "purple" },
-                { icon: <Globe className="w-8 h-8 text-green-600"/>, title: "GDPR Compliant", desc: "Full compliance with data privacy regulations", color: "green" },
-                { icon: <CheckCircle className="w-8 h-8 text-orange-600"/>, title: "99.9% Uptime", desc: "Reliable service with guaranteed availability", color: "orange" },
+                { icon: <Shield className="w-8 h-8 text-blue-600"/>, title: "SOC 2 Certified", desc: "Type II compliance ensuring highest security standards", bgClass: "bg-blue-100", innerBgClass: "bg-blue-200" },
+                { icon: <Lock className="w-8 h-8 text-purple-600"/>, title: "256-bit SSL", desc: "Bank-level encryption for all data in transit", bgClass: "bg-purple-100", innerBgClass: "bg-purple-200" },
+                { icon: <Globe className="w-8 h-8 text-green-600"/>, title: "GDPR Compliant", desc: "Full compliance with data privacy regulations", bgClass: "bg-green-100", innerBgClass: "bg-green-200" },
+                { icon: <CheckCircle className="w-8 h-8 text-orange-600"/>, title: "99.9% Uptime", desc: "Reliable service with guaranteed availability", bgClass: "bg-orange-100", innerBgClass: "bg-orange-200" },
             ].map((item, i) => (
                 <motion.div 
                   key={i} 
@@ -1255,14 +1548,14 @@ const HomePage: React.FC = () => {
                   whileHover={{ y: -10 }}
                 >
                     <motion.div 
-                      className={`w-16 h-16 bg-${item.color}-100 rounded-full flex items-center justify-center mb-4 relative overflow-hidden`}
+                      className={`w-16 h-16 ${item.bgClass} rounded-full flex items-center justify-center mb-4 relative overflow-hidden`}
                       whileHover={{ 
                         scale: 1.1,
                         boxShadow: `0 10px 30px rgba(59, 130, 246, 0.2)`
                       }}
                     >
                         <motion.div
-                          className={`absolute inset-0 bg-${item.color}-200`}
+                          className={`absolute inset-0 ${item.innerBgClass}`}
                           initial={{ scale: 0, opacity: 0 }}
                           whileHover={{ scale: 2, opacity: 0.5 }}
                           transition={{ duration: 0.4 }}

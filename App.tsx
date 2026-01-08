@@ -1,6 +1,7 @@
 import React from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { ApiKeyBanner } from './components/ApiKeyBanner';
 import HomePage from './app/page';
 import LoginPage from './app/login/page';
 import DashboardPage from './app/dashboard/page';
@@ -18,15 +19,19 @@ import StartupExplorerPage from './app/investor/explorer/page';
 import InvestorProfilePage from './app/investor/profile/page';
 import PortfolioPage from './app/investor/portfolio/page';
 import InvestmentThesisPage from './app/investor/thesis/page';
+import FeaturePage from './app/features/page';
 
 const App: React.FC = () => {
+  console.log('App component rendering...');
   return (
     <ThemeProvider>
       <HashRouter>
+        <ApiKeyBanner />
         <Routes>
         {/* Public Routes */}
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/features" element={<FeaturePage />} />
         
         {/* Premium Features */}
         <Route path="/security" element={<SecuritySettings />} />

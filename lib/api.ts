@@ -1,7 +1,18 @@
 import { GoogleGenAI, Type, Schema } from "@google/genai";
 import { ContentAnalysisResult, MarketTrend, FundraisingGeneratedContent } from "../types/index";
 
-const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
+let ai: GoogleGenAI | null = null;
+
+const getAI = () => {
+  if (!ai) {
+    const apiKey = import.meta.env.VITE_API_KEY || import.meta.env.VITE_GOOGLE_API_KEY || '';
+    if (!apiKey) {
+      throw new Error('API key not configured. Please set VITE_GOOGLE_API_KEY in your environment variables.');
+    }
+    ai = new GoogleGenAI({ apiKey });
+  }
+  return ai;
+};
 
 export const analyzeMarketingContent = async (text: string): Promise<ContentAnalysisResult> => {
   const prompt = `Analyze the following marketing copy for a startup. Provide a score (0-100), identify the tone, list specific actionable suggestions for improvement, and write a significantly improved version of the copy.
@@ -25,7 +36,7 @@ export const analyzeMarketingContent = async (text: string): Promise<ContentAnal
   };
 
   try {
-    const response = await ai.models.generateContent({
+    const response = await getAI().models.generateContent({
       model: "gemini-2.5-flash",
       contents: prompt,
       config: {
@@ -38,8 +49,23 @@ export const analyzeMarketingContent = async (text: string): Promise<ContentAnal
       return JSON.parse(response.text) as ContentAnalysisResult;
     }
     throw new Error("No response from AI");
-  } catch (error) {
+  } catch (error: any) {
     console.error("Gemini Analysis Error:", error);
+    
+    // Return mock data if API key is not configured
+    if (error.message?.includes('API key') || error.message?.includes('API Key')) {
+      return {
+        score: 75,
+        tone: "Professional",
+        suggestions: [
+          "Configure your VITE_GOOGLE_API_KEY environment variable to enable AI analysis",
+          "Add more specific value propositions",
+          "Include quantifiable results or metrics"
+        ],
+        improvedVersion: "⚠️ AI features require API key configuration. Please add VITE_GOOGLE_API_KEY to your environment variables."
+      };
+    }
+    
     throw error;
   }
 };
@@ -68,7 +94,7 @@ export const generateFundraisingMaterial = async (
   }
 
   try {
-    const response = await ai.models.generateContent({
+    const response = await getAI().models.generateContent({
       model: "gemini-2.5-flash",
       contents: prompt,
       config: {
@@ -94,8 +120,18 @@ export const generateFundraisingMaterial = async (
       content,
       subject
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Gemini Fundraising Error:", error);
+    
+    // Return mock data if API key is not configured
+    if (error.message?.includes('API key') || error.message?.includes('API Key')) {
+      return {
+        type,
+        content: `⚠️ AI features require API key configuration.\n\nPlease add VITE_GOOGLE_API_KEY to your environment variables to enable AI-generated content.\n\nFor development: Add it to your .env file\nFor Vercel: Add it in Project Settings → Environment Variables`,
+        subject: type === 'email' ? 'API Configuration Required' : undefined
+      };
+    }
+    
     throw error;
   }
 };
@@ -106,7 +142,7 @@ export const getMarketIntelligence = async (industry: string): Promise<{ trends:
   Also provide a brief executive summary of the market state.`;
 
   try {
-    const response = await ai.models.generateContent({
+    const response = await getAI().models.generateContent({
       model: "gemini-2.5-flash",
       contents: prompt,
       config: {
@@ -151,8 +187,24 @@ export const getMarketIntelligence = async (industry: string): Promise<{ trends:
         sources: Array.from(new Set(sources))
     };
 
-  } catch (error) {
+  } catch (error: any) {
     console.error("Gemini Market Intel Error:", error);
+    
+    // Return mock data if API key is not configured
+    if (error.message?.includes('API key') || error.message?.includes('API Key')) {
+      return {
+        summary: "⚠️ Market intelligence requires API key configuration. Please add VITE_GOOGLE_API_KEY to your environment variables.",
+        trends: [
+          {
+            trend: "API Configuration Required",
+            impact: "AI-powered market research is currently unavailable",
+            opportunity: "Configure your Google Generative AI API key to unlock market intelligence features"
+          }
+        ],
+        sources: []
+      };
+    }
+    
     throw error;
   }
 };

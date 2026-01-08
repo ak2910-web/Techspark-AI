@@ -48,11 +48,54 @@ Techspark AI is an AI-powered platform that helps early-stage startups and inves
 ---
 
 ## ⭐ Setup & Usage
+
+### Local Development
 1. **Clone the repo**
-2. `npm install`
-3. Add your Gemini API key to `.env` as `VITE_GEMINI_API_KEY`
-4. `npm run dev` for local dev
-5. `npx wrangler deploy` to deploy backend
+   ```bash
+   git clone <your-repo-url>
+   cd Techspark-AI
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment Variables**
+   - Copy `.env.example` to `.env`
+   - Add your Google Generative AI API key:
+     ```
+     VITE_GOOGLE_API_KEY=your_api_key_here
+     ```
+   - Get your API key from: https://makersuite.google.com/app/apikey
+
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+   - Open http://localhost:5173 in your browser
+
+### Deployment to Vercel
+
+1. **Push your code to GitHub** (make sure `.env` is in `.gitignore`)
+
+2. **Import project in Vercel**
+   - Go to https://vercel.com
+   - Click "Add New" → "Project"
+   - Import your repository
+
+3. **Configure Environment Variables in Vercel**
+   - In Vercel project settings, go to "Environment Variables"
+   - Add: `VITE_GOOGLE_API_KEY` = `your_api_key_here`
+   - Make sure it's available for all environments (Production, Preview, Development)
+
+4. **Deploy**
+   - Vercel will automatically build and deploy
+   - Visit your deployment URL
+
+**Note**: The app will work without the API key, but AI features will be disabled. You'll see a banner at the top indicating this.
+
+For detailed deployment instructions, see [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md)
 
 ---
 
