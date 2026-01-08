@@ -10,6 +10,8 @@ import {
 } from 'lucide-react';
 import Button from '../components/ui/Button';
 import ThemeToggle from '../components/ThemeToggle';
+import AIChatAssistant from '../components/AIChatAssistant';
+import AISmartSearch from '../components/AISmartSearch';
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
@@ -195,6 +197,12 @@ const HomePage: React.FC = () => {
                   />
                 </motion.a>
               ))}
+              
+              {/* AI Smart Search - Integrated in Nav */}
+              <div className="w-64">
+                <AISmartSearch />
+              </div>
+              
               <ThemeToggle />
               <motion.button 
                 onClick={handleLogin} 
@@ -1584,6 +1592,9 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </footer>
+
+      {/* AI Chat Assistant - Fixed Bottom Right */}
+      <AIChatAssistant />
     </div>
   );
 };
